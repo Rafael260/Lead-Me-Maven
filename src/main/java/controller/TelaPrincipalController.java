@@ -26,6 +26,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import modelo.Aluno;
 import modelo.Disciplina;
+import modelo.MatrizCurricular;
 import modelo.MatrizDisciplina;
 import service.ServiceFacade;
 import service.ServiceFacadeFactory;
@@ -63,7 +64,7 @@ public class TelaPrincipalController extends Application implements Initializabl
     private Label txtTituloPieChart;
 
     @FXML
-    private TableView<?> tableDisciplinasDisponiveis;
+    private TableView<MatrizDisciplina> tableDisciplinasDisponiveis;
 
     private ServiceFacade service;
 
@@ -156,10 +157,17 @@ public class TelaPrincipalController extends Application implements Initializabl
             Logger.getLogger(TelaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        //Tela de sugestoes/simulacoes
-        List<MatrizDisciplina> disciplinasDisponiveis = service.getDisciplinasDisponiveis();
-        
-        
+    //Tela de sugestoes/simulacoes
+    List<MatrizDisciplina> disciplinasDisponiveis = service.getDisciplinasDisponiveis();
+    ObservableList<MatrizDisciplina> listaObs = FXCollections.observableArrayList();
+   //listaObs.add(new MatrizDisciplina(new MatrizCurricular("teste"), new Disciplina("123","disciplina testes",90)));
+    if(!listaObs.isEmpty()){ 
+        for(MatrizDisciplina temp : disciplinasDisponiveis){
+            listaObs.add(temp);
+        }
+    }
+    tableDisciplinasDisponiveis.setItems(listaObs);   
+
     }
 
 }
