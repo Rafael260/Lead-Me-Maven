@@ -8,16 +8,25 @@ package base_dados;
 import static base_dados.AbstractDAO.DIRETORIO_RECURSOS;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.jar.Attributes;
+import weka.core.Instances;
+import weka.core.converters.ConverterUtils.DataSource;
+import weka.filters.Filter;
+import weka.filters.unsupervised.attribute.Remove;
 import modelo.Curso;
 import modelo.Disciplina;
 import modelo.MatrizCurricular;
 import modelo.PossibilidadePreRequisito;
+import weka.core.Attribute;
+import weka.core.converters.ArffLoader;
+import weka.core.converters.CSVLoader;
 
 /**
  *
@@ -34,6 +43,18 @@ public class CursoDAO extends AbstractDAO{
         return instance;
     }
     public Curso carregarCurso(String nomeCurso) throws IOException {
+           
+        /*csvloader*/
+        CSVLoader loader = new CSVLoader();
+        loader.setSource(new File("/home/diego/Downloads/teste/Lead-Me-Maven/src/main/resources/grades/componentes.csv"));
+        Instances data = loader.getDataSet();
+        Attribute codigos = data.attribute(1);
+        Attribute nomes = data.attribute(2);
+        Attribute CH = data.attribute(4);
+       /*csvloader*/ 
+        System.out.println(codigos.value(30000));//CONSEGUE ACESSAR
+        System.out.println(nomes.value(30000));//NÃO CONSEGUE ACESSAR VALORES MAIORES QUE 22181
+        
         Map<String, Disciplina> disciplinasDoCurso = new HashMap<String, Disciplina>();
         Curso curso = new Curso(nomeCurso);
         System.out.println(System.getProperty("user.dir"));
@@ -53,8 +74,19 @@ public class CursoDAO extends AbstractDAO{
                 linha = linha.replace("\n", "");
                 dadosLinha = linha.split(";");
                 codigo = dadosLinha[0];
-                nomeDisciplina = dadosLinha[1];
-                cargaHoraria = Integer.parseInt(dadosLinha[2]);
+                Integer codigoIndex = codigos.indexOfValue(codigo);
+               //COLOQUEI ESTE IF SÓ PRA TESTAR ONDE ESTÁ O ERRO
+               if(codigoIndex > 0 && codigoIndex < 22181){ 
+                   nomeDisciplina = data.attribute(2).value(codigoIndex);
+                   cargaHoraria = Integer.parseInt(CH.value(codigoIndex));
+               }
+               else{
+                    nomeDisciplina = dadosLinha[1];
+                    cargaHoraria = Integer.parseInt(dadosLinha[2]);
+               } 
+                
+               
+               
                 naturezaDisciplina = dadosLinha[3];
                 semestreIdeal = Integer.parseInt(dadosLinha[4]);
                 if (!disciplinasDoCurso.containsKey(codigo)) {
