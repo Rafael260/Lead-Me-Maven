@@ -122,8 +122,9 @@ public class SimulacaoService {
      * chamado assim que a tela de sugestões for carregada
      *
      * @param aluno
+     * @return a instancia do aluno
      */
-    public void carregarPesoMaximoParaAluno(Aluno aluno) {
+    public Aluno carregarPesoMaximoParaAluno(Aluno aluno) {
         List<Matricula> matriculas = aluno.getMatriculas();
         //Se tiver vazia, eh pq eh um aluno ingressante, entao devemos calcular a media dos outros
         if (matriculas.isEmpty()) {
@@ -135,6 +136,7 @@ public class SimulacaoService {
                 System.err.println("Houve erro ao calcular peso médio do aluno");
             }
         }
+        return aluno;
     }
 
     /**

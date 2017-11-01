@@ -55,6 +55,7 @@ public class Matricula {
         this.porcentagemFrequencia = numeroPresencas;
     }
     
+    //TODO remover metodo e usar somente o metodo do service
     public boolean situacaoAprovada(){
         return situacao.startsWith("APR");
     }

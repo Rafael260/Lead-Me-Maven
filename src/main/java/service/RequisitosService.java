@@ -23,12 +23,15 @@ import modelo.MatrizDisciplina;
  */
 public abstract class RequisitosService {
     
+    MatriculaService matriculaService;
+    
     public RequisitosService(){
+        matriculaService = new MatriculaServiceUFRN();
     }
     
     public boolean pagouMateria(Aluno aluno, Disciplina disciplina, boolean considerarEquivalentes){
         for(Matricula matricula: aluno.getMatriculas()){
-            if (matricula.getTurma().getDisciplina().equals(disciplina) && matricula.getSituacao().contains("APR")){
+            if (matricula.getTurma().getDisciplina().equals(disciplina) && matriculaService.situacaoAprovada(matricula)){
                 return true;
             }
         }

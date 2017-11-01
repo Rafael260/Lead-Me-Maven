@@ -65,6 +65,7 @@ public class Aluno{
         this.matriculas.add(matricula);
     }
     
+    //TODO remover metodo e utilizar no service
     public Map<String,List<Disciplina>> coletarMatriculasAgrupadasPorPeriodoLetivo(boolean apenasAprovados){
         Map<String,List<Disciplina>> disciplinasAgrupadas = new HashMap<>();
         List<Disciplina> disciplinasDoPeriodo;

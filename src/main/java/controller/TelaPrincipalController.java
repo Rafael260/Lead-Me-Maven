@@ -213,7 +213,7 @@ public class TelaPrincipalController implements Initializable {
 
     private void carregarSugestoes(Aluno alunoLogado) {
         criarTabelaDeSugestoes();
-        service.carregarPesoMaximoParaAluno(alunoLogado);
+        alunoLogado = service.carregarPesoMaximoParaAluno(alunoLogado);
         disciplinasDisponiveis = service.carregarDisciplinasDisponiveis(alunoLogado.getCurso());
         List<MatrizDisciplina> disciplinasParaTabela = new ArrayList<>();
         disciplinasParaTabela.addAll(disciplinasDisponiveis);

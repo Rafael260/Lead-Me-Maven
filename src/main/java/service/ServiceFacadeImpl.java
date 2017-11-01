@@ -52,8 +52,8 @@ public class ServiceFacadeImpl implements ServiceFacade {
     }
     
     @Override
-    public void carregarPesoMaximoParaAluno(Aluno aluno) {
-        simulacaoService.carregarPesoMaximoParaAluno(aluno);
+    public Aluno carregarPesoMaximoParaAluno(Aluno aluno) {
+        return simulacaoService.carregarPesoMaximoParaAluno(aluno);
     }
 
     @Override
