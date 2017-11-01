@@ -10,5 +10,5 @@ package base_dados;
  * @author rafao
  */
 public abstract class AbstractDAO {
-    public static final String DIRETORIO_RECURSOS = "src/main/resources/";
+    public static final String DIRETORIO_RECURSOS = "";
 }
