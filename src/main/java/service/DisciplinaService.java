@@ -5,6 +5,7 @@
  */
 package service;
 
+import fabricas.Fabrica;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -50,7 +51,7 @@ public class DisciplinaService {
     }
     
     public void ordenarDisciplinas(List<MatrizDisciplina> disciplinas){
-        ComparadorMatrizDisciplina comparador = new ComparadorMatrizDisciplinaUFRN();
+        ComparadorMatrizDisciplina comparador = Fabrica.getInstance().getFactory().createComparadorMatrizDisciplina();
         Collections.sort(disciplinas, comparador);
     }
 }

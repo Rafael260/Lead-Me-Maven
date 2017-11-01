@@ -5,6 +5,7 @@
  */
 package service;
 
+import fabricas.Fabrica;
 import java.util.List;
 import modelo.Matricula;
 import modelo.Turma;
@@ -18,7 +19,7 @@ public class TurmaService {
     private MatriculaService matriculaService;
     
     public TurmaService(){
-        matriculaService = new MatriculaServiceUFRN();
+        matriculaService = Fabrica.getInstance().getFactory().createMatriculaService();
     }
     public Double coletarMediaAprovacao(Turma turma){
         Double aprovados = 0.0;

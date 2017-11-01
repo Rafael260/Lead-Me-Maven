@@ -3,21 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package extrator_dados;
+package service;
+
+import modelo.Matricula;
 
 /**
  *
  * @author rafao
  */
-public class ExtratorUFRN implements Extrator{
+public class MatriculaServiceEstacio extends MatriculaService{
 
-    public ExtratorUFRN(){
-        
-    }
-    
     @Override
-    public void atualizarBaseDeDados() {
-        
+    public boolean situacaoAprovada(Matricula matricula) {
+        return matricula.getMedia() >= 6;
     }
-    
 }

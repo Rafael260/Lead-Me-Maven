@@ -2,6 +2,7 @@ package controller;
 
 import excecoes.AutenticacaoException;
 import excecoes.DataException;
+import fabricas.Fabrica;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

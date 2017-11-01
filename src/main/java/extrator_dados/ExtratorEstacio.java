@@ -9,15 +9,11 @@ package extrator_dados;
  *
  * @author rafao
  */
-public class ExtratorUFRN implements Extrator{
+public class ExtratorEstacio implements Extrator{
 
-    public ExtratorUFRN(){
-        
-    }
-    
     @Override
     public void atualizarBaseDeDados() {
-        
+        System.out.println("Atualizou a base da Estácio");
     }
     
 }

@@ -6,6 +6,7 @@ import modelo.Aluno;
 import modelo.Disciplina;
 import modelo.MatrizDisciplina;
 import excecoes.AutenticacaoException;
+import fabricas.Fabrica;
 import modelo.Curso;
 
 public class ServiceFacadeImpl implements ServiceFacade {
@@ -22,7 +23,7 @@ public class ServiceFacadeImpl implements ServiceFacade {
         cursoService = new CursoService();
         disciplinaService = new DisciplinaService();
         simulacaoService = SimulacaoService.getInstance();
-        requisitosService = new RequisitosServiceUFRN();
+        requisitosService = Fabrica.getInstance().getFactory().createRequisitosService();
         dadosService = new DadosService();
     }
 
