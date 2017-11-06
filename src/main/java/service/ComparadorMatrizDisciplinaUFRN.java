@@ -13,7 +13,9 @@ import modelo.MatrizDisciplina;
  */
 public class ComparadorMatrizDisciplinaUFRN extends ComparadorMatrizDisciplina{
 
-    
+    public ComparadorMatrizDisciplinaUFRN(){
+        
+    }
     
     @Override
     public int compare(MatrizDisciplina md1, MatrizDisciplina md2) {

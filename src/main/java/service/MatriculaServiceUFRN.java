@@ -13,6 +13,10 @@ import modelo.Matricula;
  */
 public class MatriculaServiceUFRN extends MatriculaService{
 
+    public MatriculaServiceUFRN(){
+        
+    }
+    
     @Override
     public boolean situacaoAprovada(Matricula matricula){
         return matricula.getSituacao().startsWith("APR");

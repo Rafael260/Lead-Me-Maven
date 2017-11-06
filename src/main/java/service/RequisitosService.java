@@ -5,6 +5,7 @@
  */
 package service;
 
+import fabricas.Fabrica;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -26,7 +27,7 @@ public abstract class RequisitosService {
     MatriculaService matriculaService;
     
     public RequisitosService(){
-        matriculaService = new MatriculaServiceUFRN();
+        matriculaService = Fabrica.getInstance().getFactory().createMatriculaService();
     }
     
     public boolean pagouMateria(Aluno aluno, Disciplina disciplina, boolean considerarEquivalentes){

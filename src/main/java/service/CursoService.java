@@ -7,6 +7,7 @@ package service;
 
 import base_dados.CursoDAO;
 import excecoes.DataException;
+import fabricas.Fabrica;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,7 +31,7 @@ public class CursoService {
     private DisciplinaService disciplinaService;
     public CursoService(){
         cursoDAO = CursoDAO.getInstance();
-        requisitosService = new RequisitosServiceUFRN();
+        requisitosService = Fabrica.getInstance().getFactory().createRequisitosService();
         bibliotecaMineracao = new BibliotecaMineracaoImpl();
         disciplinaService = new DisciplinaService();
     }
@@ -83,7 +84,7 @@ public class CursoService {
      */
     public List<Disciplina> coletarDisciplinasMaisDificeis(Curso curso){
         List<Disciplina> disciplinasDificeis = curso.getDisciplinas();
-        ComparadorDisciplinaDificil comparador = new ComparadorDisciplinaDificilUFRN();
+        ComparadorDisciplinaDificil comparador = Fabrica.getInstance().getFactory().createComparadorDisciplinaDificil();
         //As mais dificeis primeiro
         Collections.sort(disciplinasDificeis,comparador);
         //Só interessa o número de disciplinas para a tabela

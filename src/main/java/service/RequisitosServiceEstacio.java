@@ -9,12 +9,8 @@ package service;
  *
  * @author rafao
  */
-public class RequisitosServiceUFRN extends RequisitosService{
+public class RequisitosServiceEstacio extends RequisitosService{
 
-    public RequisitosServiceUFRN(){
-        
-    }
-    
     @Override
     public String coletarRegexCodigoDisciplina() {
         return "[A-Z]{3}[0-9]{4}";
@@ -22,7 +18,7 @@ public class RequisitosServiceUFRN extends RequisitosService{
 
     @Override
     public String coletarExpressaoRequisitosComOperadores(String requisitos) {
-        return requisitos.replace(" E ", "*").replace(" OU ", "+");
+        return requisitos.replace(" & ", "*").replace(" | ", "+");
     }
     
 }
