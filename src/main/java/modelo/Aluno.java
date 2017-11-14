@@ -4,16 +4,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+@Entity
 public class Aluno{
 
-    public static final Double MEDIA_APROVACAO = 5.0;
+    @Id
+    private String id;
     
-    private String nome;
-    private String numeroMatricula;
+    @ManyToOne
     private Curso curso;
-    private String matrizCurricular;
+    
+    @OneToMany
     private List<Matricula> matriculas;
     
     public Aluno() {
@@ -21,22 +26,14 @@ public class Aluno{
         matriculas = new ArrayList<>();
     }
 
-    public String getNome() {
-        return nome;
+    public String getId() {
+        return id;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setId(String id) {
+        this.id = id;
     }
     
-    public String getNumeroMatricula() {
-        return numeroMatricula;
-    }
-
-    public void setNumeroMatricula(String numeroMatricula) {
-        this.numeroMatricula = numeroMatricula;
-    }
-
     public Curso getCurso() {
         return curso;
     }
@@ -45,14 +42,6 @@ public class Aluno{
         this.curso = curso;
     }
 
-    public String getMatrizCurricular() {
-        return matrizCurricular;
-    }
-
-    public void setMatrizCurricular(String matrizCurricular) {
-        this.matrizCurricular = matrizCurricular;
-    }
-    
     public List<Matricula> getMatriculas() {
         return matriculas;
     }
@@ -86,13 +75,6 @@ public class Aluno{
     }
 
     @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 47 * hash + Objects.hashCode(this.numeroMatricula);
-        return hash;
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -104,7 +86,7 @@ public class Aluno{
             return false;
         }
         final Aluno other = (Aluno) obj;
-        return this.numeroMatricula.equals(other.numeroMatricula);
+        return this.id.equals(other.getId());
     }
     
     

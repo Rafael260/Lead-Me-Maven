@@ -44,7 +44,7 @@ public class CursoService {
     }
     
     public List<Disciplina> carregarDisciplinasDoCurso(Curso curso){
-        return curso.getDisciplinas();
+        return curso.coletarDisciplinas();
     }
     
     /**
@@ -58,14 +58,11 @@ public class CursoService {
         Curso curso = aluno.getCurso();
         //Crio a lista com as disciplinas disponiveis
         List<MatrizDisciplina> disciplinasDisponiveis = new ArrayList<>();
-        //Consulto a grade do aluno para considerar as sugestoes
-        MatrizCurricular matriz = curso.getMatrizesCurricular().get(aluno.getMatrizCurricular());
+        //TODO fornecer a lista de matrizes para aluno escolher qual fazer as simulacoes
+        MatrizCurricular matriz = curso.getMatrizesCurricular().get(0);
         //E para cada disciplina da matriz, eu verifico se o aluno pode pagar
-        Map<String, MatrizDisciplina> disciplinasNaMatriz = matriz.getDisciplinasNaMatriz();
-        Set<String> codigoDisciplinas = disciplinasNaMatriz.keySet();
-        MatrizDisciplina disciplinaNaMatriz;
-        for (String codigoDisciplina: codigoDisciplinas){
-            disciplinaNaMatriz = disciplinasNaMatriz.get(codigoDisciplina);
+        List<MatrizDisciplina> disciplinasNaMatriz = matriz.getDisciplinasNaMatriz();
+        for (MatrizDisciplina disciplinaNaMatriz: disciplinasNaMatriz){
             if (requisitosService.podePagar(aluno, disciplinaNaMatriz.getDisciplina())){
                 disciplinasDisponiveis.add(disciplinaNaMatriz);
             }
@@ -83,7 +80,7 @@ public class CursoService {
      * @return 
      */
     public List<Disciplina> coletarDisciplinasMaisDificeis(Curso curso){
-        List<Disciplina> disciplinasDificeis = curso.getDisciplinas();
+        List<Disciplina> disciplinasDificeis = curso.coletarDisciplinas();
         ComparadorDisciplinaDificil comparador = Fabrica.getInstance().getFactory().createComparadorDisciplinaDificil();
         //As mais dificeis primeiro
         Collections.sort(disciplinasDificeis,comparador);

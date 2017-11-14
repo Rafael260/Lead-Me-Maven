@@ -105,7 +105,7 @@ public class SimulacaoService {
     private Double coletarPesoMedioSuportado(Curso curso) {
         int qtdeAlunosParaMedia = 0;
         Double pesoAcumulado = 0.0;
-        List<Aluno> alunos = new ArrayList(curso.getAlunos().values());
+        List<Aluno> alunos = curso.getAlunos();
         for (Aluno aluno : alunos) {
             try {
                 pesoAcumulado += calcularPesoMedioDoAluno(aluno);

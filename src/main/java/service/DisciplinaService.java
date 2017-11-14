@@ -34,7 +34,7 @@ public class DisciplinaService {
      * @return média de aprovações dessa disciplina
      */
     public Double coletarMediaAprovacao(Disciplina disciplina) {
-        Collection<Turma> turmas = disciplina.getTurmas().values();
+        Collection<Turma> turmas = disciplina.getTurmas();
         //Se nenhuma turma foi adicionada, nao podemos falar q houve reprovacoes
         if (disciplina.getTurmas() == null || disciplina.getTurmas().isEmpty()) {
             return 100.0;

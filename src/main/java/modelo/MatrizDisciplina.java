@@ -1,8 +1,19 @@
 package modelo;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class MatrizDisciplina{
 
+    @Id
+    private Integer id;
+    
+    @ManyToOne
     private MatrizCurricular matrizCurricular;
+    
+    @ManyToOne
     private Disciplina disciplina;
     private String naturezaDisciplina;
     private Integer semestreIdeal;
@@ -14,6 +25,14 @@ public class MatrizDisciplina{
     public MatrizDisciplina(MatrizCurricular matrizCurricular, Disciplina disciplina) {
         this.matrizCurricular = matrizCurricular;
         this.disciplina = disciplina;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public MatrizCurricular getMatrizCurricular() {

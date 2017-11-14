@@ -2,29 +2,44 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.List;
-import sincronizacao.RecursoCompartilhado;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+@Entity
 public class Turma {
 
+    @Id
+    private Integer id;
     private String periodoLetivo;
-    private String numeroTurma;
+    private String codigoTurma;
+    
+    @ManyToOne
     private Disciplina disciplina;
+    
+    @OneToMany
     private List<Matricula> matriculas;
     
-    private RecursoCompartilhado recurso;
     
     public Turma(){
         this.matriculas = new ArrayList<>();
-        this.numeroTurma = "T01";
-        this.recurso = new RecursoCompartilhado();
+        this.codigoTurma = "T01";
     }
 
     public Turma(String periodoLetivo, Disciplina disciplina) {
         this.periodoLetivo = periodoLetivo;
         this.disciplina = disciplina;
         this.matriculas = new ArrayList<>();
-        this.numeroTurma = "T01";
-        this.recurso = new RecursoCompartilhado();
+        this.codigoTurma = "T01";
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getPeriodoLetivo() {
@@ -35,12 +50,12 @@ public class Turma {
         this.periodoLetivo = periodoLetivo;
     }
 
-    public String getNumeroTurma() {
-        return numeroTurma;
+    public String getCodigoTurma() {
+        return codigoTurma;
     }
 
-    public void setNumeroTurma(String numeroTurma) {
-        this.numeroTurma = numeroTurma;
+    public void setCodigoTurma(String codigoTurma) {
+        this.codigoTurma = codigoTurma;
     }
     
     public Disciplina getDisciplina() {
@@ -62,9 +77,7 @@ public class Turma {
     //Utiliza o lock para adicionar a matricula na lista
     public Matricula adicionarAluno(Aluno aluno){
         Matricula novaMatricula = new Matricula(this,aluno);
-        recurso.requisitarAcesso();
         this.matriculas.add(novaMatricula);
-        recurso.liberarAcesso();
         aluno.adicionarMatricula(novaMatricula);
         return novaMatricula;
     }

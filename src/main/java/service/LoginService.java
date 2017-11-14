@@ -39,7 +39,7 @@ public class LoginService{
             String nomeCurso = alunoDAO.carregarNomeCurso(matricula);
             Curso curso = cursoService.carregarCurso(nomeCurso);
             //E depois colete o aluno com essa matricula
-            aluno = curso.coletarAluno(matricula);
+            aluno = alunoDAO.carregarAluno(matricula);
             if (aluno == null){
                 System.out.println("ALUNO NULO!!!");
             }

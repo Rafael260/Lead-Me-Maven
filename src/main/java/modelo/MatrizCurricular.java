@@ -1,17 +1,34 @@
 package modelo;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
+@Entity
 public class MatrizCurricular {
 
+    @Id
+    private Integer id;
+    
     private String nomeMatriz;
     private Curso curso;
-    private Map<String,MatrizDisciplina> disciplinasNaMatriz;
+    
+    @OneToMany
+    private List<MatrizDisciplina> disciplinasNaMatriz;
     
     public MatrizCurricular(String nomeMatriz) {
         this.nomeMatriz = nomeMatriz;
-        this.disciplinasNaMatriz = new HashMap<String,MatrizDisciplina>();
+        this.disciplinasNaMatriz = new ArrayList<>();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNomeMatriz() {
@@ -30,11 +47,11 @@ public class MatrizCurricular {
         this.curso = curso;
     }
 
-    public Map<String,MatrizDisciplina> getDisciplinasNaMatriz() {
+    public List<MatrizDisciplina> getDisciplinasNaMatriz() {
         return disciplinasNaMatriz;
     }
 
-    public void setDisciplinasNaMatriz(Map<String,MatrizDisciplina> disciplinasNaMatriz) {
+    public void setDisciplinasNaMatriz(List<MatrizDisciplina> disciplinasNaMatriz) {
         this.disciplinasNaMatriz = disciplinasNaMatriz;
     }
 
@@ -42,11 +59,16 @@ public class MatrizCurricular {
         MatrizDisciplina disciplinaRelacionada = new MatrizDisciplina(this, disciplina);
         disciplinaRelacionada.setNaturezaDisciplina(natureza);
         disciplinaRelacionada.setSemestreIdeal(semestreIdeal);
-        this.disciplinasNaMatriz.put(disciplinaRelacionada.getDisciplina().getCodigo(),disciplinaRelacionada);
+        this.disciplinasNaMatriz.add(disciplinaRelacionada);
         disciplina.adicionarMatrizRelacionada(disciplinaRelacionada);
     }
     
     public MatrizDisciplina getDisciplina(String codigo){
-        return disciplinasNaMatriz.get(codigo);
+        for(MatrizDisciplina matrizDisciplina: this.disciplinasNaMatriz){
+            if(matrizDisciplina.getDisciplina().getCodigo().equals(codigo)){
+                return matrizDisciplina;
+            }
+        }
+        return null;
     }
 }

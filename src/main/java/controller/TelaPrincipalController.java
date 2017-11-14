@@ -135,7 +135,7 @@ public class TelaPrincipalController implements Initializable {
         }
         XYChart.Series<Integer, Double> series = new XYChart.Series<>();
         for (Matricula matricula : turmaSelecionada.getMatriculas()) {
-            series.getData().add(new XYChart.Data(matricula.getPorcentagemFrequencia(), matricula.getMedia()));
+            series.getData().add(new XYChart.Data(matricula.getNumeroFaltas(), matricula.getMedia()));
         }
         graficoFrequenciaNotas.getData().setAll(series);
     }
@@ -151,7 +151,7 @@ public class TelaPrincipalController implements Initializable {
                 new PieChart.Data("Reprovados: " + String.format("%.2f", 100.0 - aprovacoes) + "%", 100.0 - aprovacoes));
         chartAprovacoes.setData(dadosPieChart);
         txtTituloPieChart.setText("Aprovações de " + disciplinaSelecionadaEstatistica.getNome());
-        carregarListaTurmasSelecionavel(new ArrayList<>(disciplinaSelecionadaEstatistica.getTurmas().values()));
+        carregarListaTurmasSelecionavel(disciplinaSelecionadaEstatistica.getTurmas());
         txtDisciplina.clear();
     }
 
