@@ -1,24 +1,27 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Aluno{
+public class Aluno implements Serializable{
 
     @Id
     private String id;
     
     @ManyToOne
+    @JoinColumn(name = "curso_id")
     private Curso curso;
     
-    @OneToMany
+    @OneToMany(mappedBy = "aluno")
     private List<Matricula> matriculas;
     
     public Aluno() {

@@ -1,25 +1,32 @@
 package modelo;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Matricula {
+public class Matricula implements Serializable{
 
     @Id
     private Integer id;
     
     @ManyToOne
+    @JoinColumn(name = "turma_id")
     private Turma turma;
     
     @ManyToOne
+    @JoinColumn(name = "aluno_id")
     private Aluno aluno;
     
     private Double numeroFaltas;
 
     private Double media;
     private String situacao;
+
+    public Matricula() {
+    }
 
     public Matricula(Turma turma, Aluno aluno) {
         this.turma = turma;

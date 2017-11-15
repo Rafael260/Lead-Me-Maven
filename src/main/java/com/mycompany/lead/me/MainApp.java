@@ -1,5 +1,8 @@
 package com.mycompany.lead.me;
 
+import base_dados.CursoDAO;
+import extrator_dados.Extrator;
+import extrator_dados.ExtratorUFRN;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -16,10 +19,12 @@ public class MainApp extends Application {
         
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
-        
+        //Teste para criar as tabelas
         stage.setTitle("Lead Me - Login");
         stage.setScene(scene);
         stage.show();
+        Extrator ex = new ExtratorUFRN();
+        ex.atualizarBaseDeDados();
     }
 
     /**

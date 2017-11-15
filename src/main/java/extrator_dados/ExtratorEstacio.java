@@ -9,11 +9,41 @@ package extrator_dados;
  *
  * @author rafao
  */
-public class ExtratorEstacio implements Extrator{
+public class ExtratorEstacio extends Extrator{
 
     @Override
-    public void atualizarBaseDeDados() {
-        System.out.println("Atualizou a base da Estácio");
+    public void atualizarListaDeCursos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    @Override
+    public void atualizarListaDeMatrizesCurriculares() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void atualizarListaDeDisciplinas() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void atualizarListaDeTurmas() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void atualizarListaDeAlunos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void atualizarListaDeComponentesDasMatrizes() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void atualizarListaDeMatriculas() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

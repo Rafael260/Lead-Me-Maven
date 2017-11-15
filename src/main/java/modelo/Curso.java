@@ -1,5 +1,6 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
@@ -7,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Curso {
+public class Curso implements Serializable{
 
     @Id
     private Integer id;
@@ -18,11 +19,17 @@ public class Curso {
     //Presencial, EAD, etc
     private String modalidade;
     
-    @OneToMany
+    @OneToMany(mappedBy = "curso")
     private List<MatrizCurricular> matrizesCurricular;
-    @OneToMany
+    
+    @OneToMany(mappedBy = "curso")
     private List<Aluno> alunos;
 
+    public Curso(){
+        this.matrizesCurricular = new ArrayList<>();
+        this.alunos = new ArrayList<>();
+    }
+    
     public Curso(String nome) {
         this.nome = nome;
         this.matrizesCurricular = new ArrayList<>();

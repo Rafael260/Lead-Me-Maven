@@ -25,11 +25,12 @@ import modelo.Turma;
  *
  * @author rafao
  */
-public class AlunoDAO extends AbstractDAO {
+public class AlunoDAO extends AbstractDAO<Aluno,Integer> {
 
     private static AlunoDAO instance = new AlunoDAO();
 
     private AlunoDAO() {
+        super(Aluno.class);
     }
 
     public static AlunoDAO getInstance() {

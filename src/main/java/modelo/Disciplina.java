@@ -1,28 +1,29 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import sincronizacao.RecursoCompartilhado;
 
 @Entity
-public class Disciplina{
+public class Disciplina implements Serializable{
 
     @Id
     private Integer id;
+    
     private String codigo;
     private String nome;
     private Integer cargaHoraria;
-    @OneToMany
-    private List<MatrizDisciplina> matrizesRelacionadas;
-
     private String preRequisitos;
     private String equivalencias;
     private String coRequisitos;
+    
+    @OneToMany(mappedBy = "disciplina")
+    private List<MatrizDisciplina> matrizesRelacionadas;
 
-    @OneToMany
+    @OneToMany(mappedBy = "disciplina")
     List<Turma> turmas;
     
     public Disciplina(){

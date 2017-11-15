@@ -1,24 +1,28 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Turma {
+public class Turma implements Serializable{
 
     @Id
     private Integer id;
+    
     private String periodoLetivo;
     private String codigoTurma;
     
     @ManyToOne
+    @JoinColumn(name = "disciplina_id")
     private Disciplina disciplina;
     
-    @OneToMany
+    @OneToMany(mappedBy = "turma")
     private List<Matricula> matriculas;
     
     

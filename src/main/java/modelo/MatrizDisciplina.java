@@ -1,20 +1,25 @@
 package modelo;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class MatrizDisciplina{
+public class MatrizDisciplina implements Serializable{
 
     @Id
     private Integer id;
     
     @ManyToOne
+    @JoinColumn(name = "matriz_id")
     private MatrizCurricular matrizCurricular;
     
     @ManyToOne
+    @JoinColumn(name = "disciplina_id")
     private Disciplina disciplina;
+    
     private String naturezaDisciplina;
     private Integer semestreIdeal;
 

@@ -13,14 +13,9 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import minerador.GeradorCSV;
 import modelo.Curso;
 import modelo.Disciplina;
 import util.ThreadUtil;
@@ -29,11 +24,12 @@ import util.ThreadUtil;
  *
  * @author rafao
  */
-public class CursoDAO extends AbstractDAO{
+public class CursoDAO extends AbstractDAO<Curso,Integer>{
     private static CursoDAO instance = new CursoDAO();
     private AlunoDAO alunoDAO;
     
     private CursoDAO(){
+        super(Curso.class);
         alunoDAO = AlunoDAO.getInstance();
     }
     
