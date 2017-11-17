@@ -25,7 +25,7 @@ import modelo.Turma;
  *
  * @author rafao
  */
-public class AlunoDAO extends AbstractDAO<Aluno,Integer> {
+public class AlunoDAO extends AbstractDAO<Aluno,String> {
 
     private static AlunoDAO instance = new AlunoDAO();
 
@@ -134,7 +134,7 @@ public class AlunoDAO extends AbstractDAO<Aluno,Integer> {
                 
                 matricula.setMedia(Double.parseDouble(dadosDisciplina[3]));
                 matricula.setSituacao(dadosDisciplina[5]);
-                matricula.setPorcentagemPresencas(Double.parseDouble(dadosDisciplina[4]));
+                matricula.setNumeroFaltas(Double.parseDouble(dadosDisciplina[4]));
             }
             //Metodo que utiliza o lock
 //            curso.adicionarAluno(aluno);

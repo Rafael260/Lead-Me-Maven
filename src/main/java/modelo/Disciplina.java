@@ -3,8 +3,10 @@ package modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -16,8 +18,17 @@ public class Disciplina implements Serializable{
     private String codigo;
     private String nome;
     private Integer cargaHoraria;
+    
+    @Lob
+    @Column
     private String preRequisitos;
+    
+    @Lob
+    @Column
     private String equivalencias;
+    
+    @Lob
+    @Column
     private String coRequisitos;
     
     @OneToMany(mappedBy = "disciplina")
