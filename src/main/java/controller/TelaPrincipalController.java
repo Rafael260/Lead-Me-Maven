@@ -33,6 +33,7 @@ import modelo.Aluno;
 import modelo.Curso;
 import modelo.Disciplina;
 import modelo.Matricula;
+import modelo.MatrizCurricular;
 import modelo.MatrizDisciplina;
 import modelo.Turma;
 import service.ServiceFacade;
@@ -87,6 +88,9 @@ public class TelaPrincipalController implements Initializable {
 
     @FXML
     private Button btnSair;
+    
+    @FXML
+    private ComboBox<MatrizCurricular> cbMatrizCurricular;
 
     private ServiceFacade service;
     //Possibilidades de resultado de busca de disciplina para consulta de estatisticas
@@ -96,12 +100,14 @@ public class TelaPrincipalController implements Initializable {
     private AutoCompletionBinding<Disciplina> autoCompleteEstatistica;
     private ControllerUtil util = new ControllerUtil();
     private List<MatrizDisciplina> disciplinasDisponiveis;
+    private MatrizCurricular matrizCurricularSelecionada;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         service = new ServiceFacadeImpl();
         Aluno alunoLogado = service.coletarAlunoLogado();
-        disciplinas = service.carregarDisciplinasDoCurso(alunoLogado.getCurso());
+        txtBemVindo.setText("Bem vindo, "+ alunoLogado.getNome());
+        disciplinas = service.coletarDisciplinasDoCurso(alunoLogado.getCurso());
 
         /*estatistica*/
         autoCompleteEstatistica = TextFields.bindAutoCompletion(txtDisciplina, disciplinas);
@@ -119,8 +125,9 @@ public class TelaPrincipalController implements Initializable {
         carregarGraficoAprovacoes();
         carregarScatterDaTurma();
         //Tela de sugestoes/simulacoes
+        carregarMatrizesDoCurso(alunoLogado.getCurso());
         carregarSugestoes(alunoLogado);
-        carregarDisciplinasMaisDificeis(alunoLogado.getCurso());
+//        carregarDisciplinasMaisDificeis(alunoLogado.getCurso());
     }
 
     @FXML
@@ -135,7 +142,7 @@ public class TelaPrincipalController implements Initializable {
         }
         XYChart.Series<Integer, Double> series = new XYChart.Series<>();
         for (Matricula matricula : turmaSelecionada.getMatriculas()) {
-            series.getData().add(new XYChart.Data(matricula.getPorcentagemFrequencia(), matricula.getMedia()));
+            series.getData().add(new XYChart.Data(matricula.getNumeroFaltas(), matricula.getMedia()));
         }
         graficoFrequenciaNotas.getData().setAll(series);
     }
@@ -151,7 +158,7 @@ public class TelaPrincipalController implements Initializable {
                 new PieChart.Data("Reprovados: " + String.format("%.2f", 100.0 - aprovacoes) + "%", 100.0 - aprovacoes));
         chartAprovacoes.setData(dadosPieChart);
         txtTituloPieChart.setText("Aprovações de " + disciplinaSelecionadaEstatistica.getNome());
-        carregarListaTurmasSelecionavel(new ArrayList<>(disciplinaSelecionadaEstatistica.getTurmas().values()));
+        carregarListaTurmasSelecionavel(disciplinaSelecionadaEstatistica.getTurmas());
         txtDisciplina.clear();
     }
 
@@ -212,12 +219,18 @@ public class TelaPrincipalController implements Initializable {
 
     private void carregarSugestoes(Aluno alunoLogado) {
         criarTabelaDeSugestoes();
-        alunoLogado = service.carregarPesoMaximoParaAluno(alunoLogado);
-        disciplinasDisponiveis = service.carregarDisciplinasDisponiveis(alunoLogado.getCurso());
+        disciplinasDisponiveis = service.carregarDisciplinasDisponiveis(alunoLogado.getCurso(),matrizCurricularSelecionada);
         List<MatrizDisciplina> disciplinasParaTabela = new ArrayList<>();
         disciplinasParaTabela.addAll(disciplinasDisponiveis);
         ObservableList<MatrizDisciplina> listaObs = FXCollections.observableList(disciplinasParaTabela);
         tableDisciplinasDisponiveis.setItems(listaObs);
+    }
+    
+    private void carregarMatrizesDoCurso(Curso curso){
+        ObservableList<MatrizCurricular> listaObs = FXCollections.observableArrayList(curso.getMatrizesCurricular());
+        cbMatrizCurricular.setItems(listaObs);
+        cbMatrizCurricular.getSelectionModel().select(0);
+        matrizCurricularSelecionada = cbMatrizCurricular.getSelectionModel().getSelectedItem();
     }
 
     private void criarTabelaRanking() {
@@ -252,7 +265,7 @@ public class TelaPrincipalController implements Initializable {
                 listDisciplinasSelecionadas.getItems().add(selectedItem);
                 tableDisciplinasDisponiveis.getItems().remove(selectedItem);
                 disciplinasDisponiveis.remove(selectedItem);
-                lbRecomendacao.setText(service.coletarRecomendacaoSemestre(listDisciplinasSelecionadas.getItems()));
+                lbRecomendacao.setText(service.coletarRecomendacaoSemestre(service.coletarAlunoLogado(),listDisciplinasSelecionadas.getItems()));
             } else {
                 util.criarAlerta("Aviso", "Você não atendeu os co-requisitos", "Para inserir a disciplina " + selectedItem.getDisciplina().getCodigo() + ", deverá cumprir os co-requisitos: " + selectedItem.getDisciplina().getCoRequisitos());
             }
@@ -276,7 +289,7 @@ public class TelaPrincipalController implements Initializable {
             service.ordenarDisciplinas(disciplinasDisponiveis);
             atualizarTabela(null);
             if (!listDisciplinasSelecionadas.getItems().isEmpty()) {
-                lbRecomendacao.setText(service.coletarRecomendacaoSemestre(listDisciplinasSelecionadas.getItems()));
+                lbRecomendacao.setText(service.coletarRecomendacaoSemestre(service.coletarAlunoLogado(),listDisciplinasSelecionadas.getItems()));
             } else {
                 lbRecomendacao.setText("Selecione as disciplinas para simulação");
             }
@@ -303,5 +316,13 @@ public class TelaPrincipalController implements Initializable {
         }
         tableDisciplinasDisponiveis.setItems(FXCollections.observableArrayList(disciplinasPelaBusca));
         service.ordenarDisciplinas(disciplinasPelaBusca);
+    }
+    
+    @FXML
+    void carregarSugestoesDaMatriz(ActionEvent event) {
+        matrizCurricularSelecionada = cbMatrizCurricular.getSelectionModel().getSelectedItem();
+        listDisciplinasSelecionadas.getItems().clear();
+        lbRecomendacao.setText("Selecione as disciplinas para simulação");
+        carregarSugestoes(service.coletarAlunoLogado());
     }
 }

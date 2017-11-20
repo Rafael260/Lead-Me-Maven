@@ -105,7 +105,7 @@ public class SimulacaoService {
     private Double coletarPesoMedioSuportado(Curso curso) {
         int qtdeAlunosParaMedia = 0;
         Double pesoAcumulado = 0.0;
-        List<Aluno> alunos = new ArrayList(curso.getAlunos().values());
+        List<Aluno> alunos = curso.getAlunos();
         for (Aluno aluno : alunos) {
             try {
                 pesoAcumulado += calcularPesoMedioDoAluno(aluno);
@@ -147,7 +147,10 @@ public class SimulacaoService {
      * @return uma string com a recomendação do semestre para o aluno (pouca
      * matéria, ideal, um pouco acima ou muito acima)
      */
-    public String coletarRecomendacaoSemestre(List<MatrizDisciplina> disciplinas) {
+    public String coletarRecomendacaoSemestre(Aluno aluno, List<MatrizDisciplina> disciplinas) {
+        if(this.pesoEstimadoAluno == null){
+            carregarPesoMaximoParaAluno(aluno);
+        }
         Double pesoSemestre = coletarPesoDoSemestre(disciplinas);
         if (pesoSemestre < PROPORCAO_MINIMA_CH * this.pesoEstimadoAluno) {
             return ABAIXO_RECOMENDADO;

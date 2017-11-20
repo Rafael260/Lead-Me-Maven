@@ -24,6 +24,9 @@ public class TurmaService {
     public Double coletarMediaAprovacao(Turma turma){
         Double aprovados = 0.0;
         List<Matricula> matriculas = turma.getMatriculas();
+        if(matriculas == null || matriculas.isEmpty()){
+            return 100.0;
+        }
         for(Matricula matricula: matriculas){
             if (matriculaService.situacaoAprovada(matricula)){
                 aprovados += 1;

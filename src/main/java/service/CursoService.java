@@ -37,14 +37,15 @@ public class CursoService {
     }
     
     
-    public Curso carregarCurso(String nomeCurso) throws DataException{
-        Curso curso = cursoDAO.carregarCurso(nomeCurso);
-        bibliotecaMineracao.gerarArquivoParaAssociarDisciplinas(curso);
+    public Curso carregarCurso(Integer id) throws DataException{
+        Curso curso = cursoDAO.encontrar(id);
+//        bibliotecaMineracao.gerarArquivoParaAssociarDisciplinas(curso);
+        System.out.println("ENCONTROU O CURSO");
         return curso;
     }
     
-    public List<Disciplina> carregarDisciplinasDoCurso(Curso curso){
-        return curso.getDisciplinas();
+    public List<Disciplina> coletarDisciplinasDoCurso(Curso curso){
+        return curso.coletarDisciplinas();
     }
     
     /**
@@ -54,18 +55,14 @@ public class CursoService {
      * @param aluno aluno interessado em receber as sugestões de disciplinas
      * @return Lista de disciplinas que pode pagar, ordenada pela relevância (obrigatório e dos primeiros períodos)
      */
-    public List<MatrizDisciplina> coletarDisciplinasDisponiveis(Aluno aluno){
+    public List<MatrizDisciplina> coletarDisciplinasDisponiveis(Aluno aluno, MatrizCurricular matriz){
         Curso curso = aluno.getCurso();
         //Crio a lista com as disciplinas disponiveis
         List<MatrizDisciplina> disciplinasDisponiveis = new ArrayList<>();
-        //Consulto a grade do aluno para considerar as sugestoes
-        MatrizCurricular matriz = curso.getMatrizesCurricular().get(aluno.getMatrizCurricular());
+        //TODO fornecer a lista de matrizes para aluno escolher qual fazer as simulacoes
         //E para cada disciplina da matriz, eu verifico se o aluno pode pagar
-        Map<String, MatrizDisciplina> disciplinasNaMatriz = matriz.getDisciplinasNaMatriz();
-        Set<String> codigoDisciplinas = disciplinasNaMatriz.keySet();
-        MatrizDisciplina disciplinaNaMatriz;
-        for (String codigoDisciplina: codigoDisciplinas){
-            disciplinaNaMatriz = disciplinasNaMatriz.get(codigoDisciplina);
+        List<MatrizDisciplina> disciplinasNaMatriz = matriz.getDisciplinasNaMatriz();
+        for (MatrizDisciplina disciplinaNaMatriz: disciplinasNaMatriz){
             if (requisitosService.podePagar(aluno, disciplinaNaMatriz.getDisciplina())){
                 disciplinasDisponiveis.add(disciplinaNaMatriz);
             }
@@ -83,8 +80,8 @@ public class CursoService {
      * @return 
      */
     public List<Disciplina> coletarDisciplinasMaisDificeis(Curso curso){
-        List<Disciplina> disciplinasDificeis = curso.getDisciplinas();
-        ComparadorDisciplinaDificil comparador = Fabrica.getInstance().getFactory().createComparadorDisciplinaDificil();
+        List<Disciplina> disciplinasDificeis = curso.coletarDisciplinas();
+        ComparadorDisciplinaDificil comparador = new ComparadorDisciplinaDificil();
         //As mais dificeis primeiro
         Collections.sort(disciplinasDificeis,comparador);
         //Só interessa o número de disciplinas para a tabela

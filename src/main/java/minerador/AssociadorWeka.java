@@ -31,7 +31,7 @@ public class AssociadorWeka {
     private AssociacaoStrategy associacaoStrategy;
     
     private AssociadorWeka(){
-        associacaoStrategy = new FPGrowthStrategy();
+        associacaoStrategy = new UFRNStrategy();
     }
     
     public static AssociadorWeka getInstance(){

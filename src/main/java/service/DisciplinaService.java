@@ -34,16 +34,22 @@ public class DisciplinaService {
      * @return média de aprovações dessa disciplina
      */
     public Double coletarMediaAprovacao(Disciplina disciplina) {
-        Collection<Turma> turmas = disciplina.getTurmas().values();
+        Collection<Turma> turmas = disciplina.getTurmas();
         //Se nenhuma turma foi adicionada, nao podemos falar q houve reprovacoes
         if (disciplina.getTurmas() == null || disciplina.getTurmas().isEmpty()) {
             return 100.0;
         }
         Double somaAprovacoes = 0.0;
+        int turmasValidas = 0;
+        
         for (Turma turma : turmas) {
+            if(turma.getMatriculas().isEmpty()){
+                continue;
+            }
+            turmasValidas++;
             somaAprovacoes += turmaService.coletarMediaAprovacao(turma);
         }
-        return somaAprovacoes / turmas.size();
+        return turmasValidas > 0 ? somaAprovacoes / turmasValidas : 100.0;
     }
     
     public Double coletarMediaReprovacao(Disciplina disciplina){

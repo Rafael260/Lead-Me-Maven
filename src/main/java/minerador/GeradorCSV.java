@@ -43,9 +43,9 @@ public class GeradorCSV {
         try {
             FileWriter writer = new FileWriter(NOME_ARQUIVO_CSV_ASSOCIACAO_BINARIA);
             Map<String, List<Disciplina>> matriculasAgrupadasPorPeriodoLetivo;
-            Map<String, Aluno> alunos = curso.getAlunos();
+            List<Aluno> alunos = curso.getAlunos();
             
-            for (Aluno aluno: new ArrayList<>(alunos.values())){
+            for (Aluno aluno: alunos){
                 for(Matricula m: aluno.getMatriculas()){
                     //Adiciono apenas a coluna para uma disciplina se ao menos um aluno a pagou
                     if (!disciplinas.contains(m.getTurma().getDisciplina())){
@@ -58,7 +58,7 @@ public class GeradorCSV {
             writer.append(cabecalho.substring(0, cabecalho.length()-1)+"\n");
             
             String linhaPeriodo;
-            for (Aluno aluno : new ArrayList<>(alunos.values())) {
+            for (Aluno aluno : alunos) {
                 matriculasAgrupadasPorPeriodoLetivo = aluno.coletarMatriculasAgrupadasPorPeriodoLetivo(true);
                 for (List<Disciplina> disciplinasDoPeriodo : new ArrayList<>(matriculasAgrupadasPorPeriodoLetivo.values())) {
                     linhaPeriodo = "";

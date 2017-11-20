@@ -5,10 +5,11 @@
  */
 package fabricas;
 
+import com.mycompany.lead.me.CarregadorTelaLogin;
 import extrator_dados.Extrator;
 import extrator_dados.ExtratorEstacio;
+import service.AlunoService;
 import service.ComparadorDisciplinaDificil;
-import service.ComparadorDisciplinaDificilEstacio;
 import service.ComparadorMatrizDisciplina;
 import service.ComparadorMatrizDisciplinaEstacio;
 import service.MatriculaService;
@@ -32,10 +33,6 @@ public class EstacioFactory implements AbstractFactory{
         return new MatriculaServiceEstacio();
     }
 
-    @Override
-    public ComparadorDisciplinaDificil createComparadorDisciplinaDificil() {
-        return new ComparadorDisciplinaDificilEstacio();
-    }
 
     @Override
     public ComparadorMatrizDisciplina createComparadorMatrizDisciplina() {
@@ -45,5 +42,15 @@ public class EstacioFactory implements AbstractFactory{
     @Override
     public Extrator createExtrator() {
         return new ExtratorEstacio();
+    }
+
+    @Override
+    public CarregadorTelaLogin createCarregadorTelaLogin() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public AlunoService createAlunoService() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -74,7 +74,7 @@ public abstract class RequisitosService {
         //Se tiver as equivalentes na expressao de pre requisitos, esse trecho eh desnecessario
         List<String> codigosExpressao = coletarDisciplinasDaExpressao(requisitos);
         for (String codigo: codigosExpressao){
-            Disciplina disciplina = aluno.getCurso().getDisciplina(codigo);
+            Disciplina disciplina = aluno.getCurso().coletarDisciplina(codigo);
             if (disciplina == null || !pagouMateria(aluno,disciplina,explorarEquivalentes)){
                 requisitos = requisitos.replace(codigo,"0");
             }
