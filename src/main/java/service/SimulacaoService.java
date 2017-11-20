@@ -147,7 +147,10 @@ public class SimulacaoService {
      * @return uma string com a recomendação do semestre para o aluno (pouca
      * matéria, ideal, um pouco acima ou muito acima)
      */
-    public String coletarRecomendacaoSemestre(List<MatrizDisciplina> disciplinas) {
+    public String coletarRecomendacaoSemestre(Aluno aluno, List<MatrizDisciplina> disciplinas) {
+        if(this.pesoEstimadoAluno == null){
+            carregarPesoMaximoParaAluno(aluno);
+        }
         Double pesoSemestre = coletarPesoDoSemestre(disciplinas);
         if (pesoSemestre < PROPORCAO_MINIMA_CH * this.pesoEstimadoAluno) {
             return ABAIXO_RECOMENDADO;

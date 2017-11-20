@@ -80,4 +80,8 @@ public class MatrizCurricular implements Serializable {
         }
         return null;
     }
+    
+    public String toString(){
+        return this.id + " " + this.nomeMatriz;
+    }
 }
