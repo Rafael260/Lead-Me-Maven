@@ -60,13 +60,8 @@ public class LoginUFRNController {
                         try {
                             consumidor.carregarAccessToken(location);
                             carregarAlunoParaService();
-                            Stage stage = util.carregarTela("/fxml/TelaPrincipal.fxml", "Lead Me");
-                            stage.setOnHiding(new EventHandler<WindowEvent>() {
-                                @Override
-                                public void handle(WindowEvent event) {
-                                    util.carregarTela("/fxml/TelaLoginWebView.fxml", "Lead Me - Login");
-                                }
-                            });
+                            util.carregarTela("/fxml/TelaPrincipal.fxml", "Lead Me");
+                            
                             ((Stage) webViewLogin.getScene().getWindow()).close();
                         } catch (JSONException ex) {
                             Logger.getLogger(LoginUFRNController.class.getName()).log(Level.SEVERE, null, ex);
