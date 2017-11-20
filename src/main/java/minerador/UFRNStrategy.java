@@ -20,7 +20,7 @@ import weka.core.Instances;
  *
  * @author rafao
  */
-public class FPGrowthStrategy implements AssociacaoStrategy{
+public class UFRNStrategy implements AssociacaoStrategy{
 
     @Override
     public List<AssociationRule> rodarAssociacao() throws FileNotFoundException, IOException, Exception {

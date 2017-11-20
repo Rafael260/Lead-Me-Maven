@@ -9,7 +9,7 @@ package dto;
  *
  * @author rafao
  */
-public class DiscenteDTO {
+public class DiscenteUfrnDTO {
     private Integer anoIngresso;
     private String cpfCnpj;
     private Integer idCurso;

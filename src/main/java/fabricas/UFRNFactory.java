@@ -9,8 +9,8 @@ import com.mycompany.lead.me.CarregadorTelaLogin;
 import com.mycompany.lead.me.CarregadorTelaLoginUFRN;
 import extrator_dados.Extrator;
 import extrator_dados.ExtratorUFRN;
-import service.ComparadorDisciplinaDificil;
-import service.ComparadorDisciplinaDificilUFRN;
+import service.AlunoService;
+import service.AlunoServiceUFRN;
 import service.ComparadorMatrizDisciplina;
 import service.ComparadorMatrizDisciplinaUFRN;
 import service.MatriculaService;
@@ -22,7 +22,12 @@ import service.RequisitosServiceUFRN;
  *
  * @author rafao
  */
-public class UFRNFactory implements AbstractFactory{
+public class UFRNFactory implements AbstractFactory {
+
+    @Override
+    public AlunoService createAlunoService() {
+        return new AlunoServiceUFRN();
+    }
 
     @Override
     public RequisitosService createRequisitosService() {
@@ -32,11 +37,6 @@ public class UFRNFactory implements AbstractFactory{
     @Override
     public MatriculaService createMatriculaService() {
         return new MatriculaServiceUFRN();
-    }
-
-    @Override
-    public ComparadorDisciplinaDificil createComparadorDisciplinaDificil() {
-        return new ComparadorDisciplinaDificilUFRN();
     }
 
     @Override
@@ -53,5 +53,5 @@ public class UFRNFactory implements AbstractFactory{
     public CarregadorTelaLogin createCarregadorTelaLogin() {
         return new CarregadorTelaLoginUFRN();
     }
-    
+
 }

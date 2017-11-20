@@ -9,7 +9,7 @@ package com.mycompany.lead.me;
  *
  * @author rafao
  */
-public class CarregadorTelaLoginUFRN extends CarregadorTelaLogin{
+public class CarregadorTelaLoginUFRN implements CarregadorTelaLogin{
 
     @Override
     public String coletarNomeTelaLogin() {

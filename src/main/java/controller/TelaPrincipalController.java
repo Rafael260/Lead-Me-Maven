@@ -106,6 +106,7 @@ public class TelaPrincipalController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         service = new ServiceFacadeImpl();
         Aluno alunoLogado = service.coletarAlunoLogado();
+        txtBemVindo.setText("Bem vindo, "+ alunoLogado.getNome());
         disciplinas = service.coletarDisciplinasDoCurso(alunoLogado.getCurso());
 
         /*estatistica*/

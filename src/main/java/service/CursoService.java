@@ -81,7 +81,7 @@ public class CursoService {
      */
     public List<Disciplina> coletarDisciplinasMaisDificeis(Curso curso){
         List<Disciplina> disciplinasDificeis = curso.coletarDisciplinas();
-        ComparadorDisciplinaDificil comparador = Fabrica.getInstance().getFactory().createComparadorDisciplinaDificil();
+        ComparadorDisciplinaDificil comparador = new ComparadorDisciplinaDificil();
         //As mais dificeis primeiro
         Collections.sort(disciplinasDificeis,comparador);
         //Só interessa o número de disciplinas para a tabela

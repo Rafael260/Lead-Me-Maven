@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package conexao;
+package conexao_api_sinfo;
 
-import dto.DiscenteDTO;
-import dto.MatriculaComponenteDTO;
-import dto.SituacaoMatriculaDTO;
-import dto.UsuarioDTO;
+import dto.DiscenteUfrnDTO;
+import dto.MatriculaComponenteUfrnDTO;
+import dto.SituacaoMatriculaUfrnDTO;
+import dto.UsuarioUfrnDTO;
 import excecoes.JsonStringInvalidaException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +20,9 @@ import org.json.JSONObject;
  *
  * @author rafao
  */
-public class JsonToObject {
-    public static UsuarioDTO toUsuario(String text) throws JsonStringInvalidaException {
-        UsuarioDTO usuario = new UsuarioDTO();
+class JsonToObject {
+    public static UsuarioUfrnDTO toUsuario(String text) throws JsonStringInvalidaException {
+        UsuarioUfrnDTO usuario = new UsuarioUfrnDTO();
         if(!text.equalsIgnoreCase("")){
             try {
                 JSONObject jsonList = new JSONObject(text);
@@ -45,8 +45,8 @@ public class JsonToObject {
         return usuario;
     }
     
-    public static List<DiscenteDTO> toDiscentes(String text) throws JsonStringInvalidaException{
-        List<DiscenteDTO> discentes = new ArrayList<>();
+    public static List<DiscenteUfrnDTO> toDiscentes(String text) throws JsonStringInvalidaException{
+        List<DiscenteUfrnDTO> discentes = new ArrayList<>();
         JSONArray array = new JSONArray(text);
         for(int i = 0; i < array.length(); i++){
             JSONObject object = array.getJSONObject(i);
@@ -55,8 +55,8 @@ public class JsonToObject {
         return discentes;
     }
     
-    public static DiscenteDTO toDiscente(JSONObject discenteJson) throws JsonStringInvalidaException {
-        DiscenteDTO discenteDTO = new DiscenteDTO();
+    public static DiscenteUfrnDTO toDiscente(JSONObject discenteJson) throws JsonStringInvalidaException {
+        DiscenteUfrnDTO discenteDTO = new DiscenteUfrnDTO();
         discenteDTO.setIdDiscente(discenteJson.getInt("id-discente"));
         discenteDTO.setNomeCurso(discenteJson.getString("nome-curso"));
         discenteDTO.setPeriodoIngresso(discenteJson.getInt("periodo-ingresso"));
@@ -65,8 +65,8 @@ public class JsonToObject {
         return discenteDTO;
     }
     
-    public static List<MatriculaComponenteDTO> paraMatriculas(String json) throws JsonStringInvalidaException{
-        List<MatriculaComponenteDTO> matriculas = new ArrayList<>();
+    public static List<MatriculaComponenteUfrnDTO> paraMatriculas(String json) throws JsonStringInvalidaException{
+        List<MatriculaComponenteUfrnDTO> matriculas = new ArrayList<>();
         JSONArray array = new JSONArray(json);
         for(int i = 0; i < array.length(); i++){
             JSONObject object = array.getJSONObject(i);
@@ -75,8 +75,8 @@ public class JsonToObject {
         return matriculas;
     }
     
-    public static MatriculaComponenteDTO paraMatricula(JSONObject object) throws JsonStringInvalidaException{
-        MatriculaComponenteDTO matriculaDTO = new MatriculaComponenteDTO();
+    public static MatriculaComponenteUfrnDTO paraMatricula(JSONObject object) throws JsonStringInvalidaException{
+        MatriculaComponenteUfrnDTO matriculaDTO = new MatriculaComponenteUfrnDTO();
         matriculaDTO.setAno(object.getInt("ano"));
         matriculaDTO.setConceito(object.getBoolean("conceito"));
         matriculaDTO.setFaltas(object.getInt("faltas"));
@@ -91,8 +91,8 @@ public class JsonToObject {
         return matriculaDTO;
     }
     
-    public static List<SituacaoMatriculaDTO> paraSituacoes(String json){
-         List<SituacaoMatriculaDTO> situacoes = new ArrayList<>();
+    public static List<SituacaoMatriculaUfrnDTO> paraSituacoes(String json){
+         List<SituacaoMatriculaUfrnDTO> situacoes = new ArrayList<>();
         JSONArray array = new JSONArray(json);
         for(int i = 0; i < array.length(); i++){
             JSONObject object = array.getJSONObject(i);
@@ -101,8 +101,8 @@ public class JsonToObject {
         return situacoes;
     }
     
-    public static SituacaoMatriculaDTO paraSituacao(JSONObject obj){
-        SituacaoMatriculaDTO situacao = new SituacaoMatriculaDTO();
+    public static SituacaoMatriculaUfrnDTO paraSituacao(JSONObject obj){
+        SituacaoMatriculaUfrnDTO situacao = new SituacaoMatriculaUfrnDTO();
         situacao.setIdSituacaoMatricula(obj.getInt("id-situacao-matricula"));
         situacao.setDescricao(obj.getString("descricao"));
         return situacao;

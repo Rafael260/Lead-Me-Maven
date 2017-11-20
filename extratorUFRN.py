@@ -20,7 +20,7 @@ matriculasValidas = 0
 banco = Banco("127.0.0.1","root","12345678","leadme")
 #print(banco.select("aluno","*",None))
 
-for ano in range(2014,2018): #2011 ao 2017
+for ano in range(2017,2018): #2011 ao 2017
 	for periodo in range(1,3): #1 ao 2
 		print(">>>>>>>>ABRINDO O ARQUIVO "+ str(ano) +"."+str(periodo))
 		try:

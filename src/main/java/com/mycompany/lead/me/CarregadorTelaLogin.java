@@ -9,6 +9,6 @@ package com.mycompany.lead.me;
  *
  * @author rafao
  */
-public abstract class CarregadorTelaLogin {
-    abstract public String coletarNomeTelaLogin();
+public interface CarregadorTelaLogin {
+    public String coletarNomeTelaLogin();
 }

@@ -203,7 +203,7 @@ public class ExtratorUFRN extends Extrator {
     public void atualizarListaDeTurmas() {
         List<Thread> threads = new ArrayList<>();
         Thread threadLeitor;
-        for (int ano = 2011; ano <= 2017; ano++) {
+        for (int ano = 2014; ano <= 2017; ano++) {
             for (int periodo = 1; periodo <= 2; periodo++) {
                 System.out.println("Lendo o arquivo de " + ano + "." + periodo);
                 threadLeitor = new LeitorArquivoTurmaUFRN(ano, periodo);
@@ -219,7 +219,7 @@ public class ExtratorUFRN extends Extrator {
     public void atualizarListaDeAlunos() {
         List<Thread> threads = new ArrayList<>();
         Thread thread;
-        for (int ano = 2011; ano <= 2017; ano++) {
+        for (int ano = 2014; ano <= 2017; ano++) {
             for (int periodo = 1; periodo <= 2; periodo++) {
                 System.out.println("Criando a thread para o semestre "+ano+"."+periodo);
                 thread = new LeitorArquivoMatriculaUFRN(ano, periodo);

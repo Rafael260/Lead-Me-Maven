@@ -7,6 +7,7 @@ package fabricas;
 
 import com.mycompany.lead.me.CarregadorTelaLogin;
 import extrator_dados.Extrator;
+import service.AlunoService;
 import service.ComparadorDisciplinaDificil;
 import service.ComparadorMatrizDisciplina;
 import service.MatriculaService;
@@ -18,9 +19,9 @@ import service.RequisitosService;
  */
 public interface AbstractFactory {
     public CarregadorTelaLogin createCarregadorTelaLogin();
+    public AlunoService createAlunoService();
     public RequisitosService createRequisitosService();
     public MatriculaService createMatriculaService();
-    public ComparadorDisciplinaDificil createComparadorDisciplinaDificil();
     public ComparadorMatrizDisciplina createComparadorMatrizDisciplina();
     public Extrator createExtrator();
 }

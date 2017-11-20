@@ -5,54 +5,12 @@
  */
 package service;
 
-import base_dados.TurmaDAO;
-import conexao.ConsumidorAPI;
-import dto.MatriculaComponenteDTO;
-import java.util.ArrayList;
-import java.util.List;
 import modelo.Aluno;
-import modelo.Matricula;
-import modelo.Turma;
 
 /**
  *
  * @author rafao
  */
-public class AlunoService {
-    
-    private ConsumidorAPI consumidor;
-    private TurmaDAO turmaDAO;
-    
-    public AlunoService(){
-        consumidor = ConsumidorAPI.getInstance();
-        turmaDAO = TurmaDAO.getInstance();
-    }
-    
-    public void carregarMatriculasDoAluno(Aluno aluno){
-        List<MatriculaComponenteDTO> matriculasDTO = consumidor.coletarMatriculas(Integer.parseInt(aluno.getId()));
-        List<Matricula> matriculas = new ArrayList<>();
-        Matricula matricula;
-        Turma turma;
-        for(MatriculaComponenteDTO matriculaDTO: matriculasDTO){
-            System.out.println("Carregando a matricula");
-            matricula = new Matricula();
-            matricula.setAluno(aluno);
-            turma = turmaDAO.encontrar(matriculaDTO.getIdTurma());
-            if (turma == null){
-                System.err.println("Não encontrou a turma para a matricula recebida da API");
-                continue;
-            }
-            matricula.setTurma(turma);
-            if(matriculaDTO.getConceito()){
-                System.err.println("Conceito true, entao a nota n eh double");
-                continue;
-            }
-//            matricula.setMedia((Double) matriculaDTO.getMediaFinal());
-            String situacao = consumidor.coletarSituacaoMatricula(matriculaDTO.getIdSituacaoMatricula());
-            matricula.setSituacao(situacao);
-            matricula.setNumeroFaltas(matriculaDTO.getFaltas().doubleValue());
-            matriculas.add(matricula);
-        }
-        aluno.setMatriculas(matriculas);
-    }
+public abstract class AlunoService {
+    abstract public void carregarMatriculasDoAluno(Aluno aluno);
 }

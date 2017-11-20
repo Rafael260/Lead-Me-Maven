@@ -9,7 +9,7 @@ package dto;
  *
  * @author rafao
  */
-public class UsuarioDTO {
+public class UsuarioUfrnDTO {
     private Long idUsuario;
     private Integer idUnidade;
     private String login;

@@ -10,12 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity
 public class Aluno implements Serializable{
 
     @Id
     private String id;
+    
+    @Transient private String nome;
     
     @ManyToOne
     @JoinColumn(name = "curso_id")
@@ -35,6 +38,14 @@ public class Aluno implements Serializable{
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
     
     public Curso getCurso() {

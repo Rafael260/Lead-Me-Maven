@@ -9,7 +9,7 @@ package dto;
  *
  * @author rafao
  */
-public class MatriculaComponenteDTO {
+public class MatriculaComponenteUfrnDTO {
     
     private Integer ano;
     private Boolean conceito;
@@ -25,7 +25,7 @@ public class MatriculaComponenteDTO {
     private Integer periodo;
     private Double recuperacao;
 
-    public MatriculaComponenteDTO(){
+    public MatriculaComponenteUfrnDTO(){
         
     }
     

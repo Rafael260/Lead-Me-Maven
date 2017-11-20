@@ -9,7 +9,7 @@ package dto;
  *
  * @author rafao
  */
-public class SituacaoMatriculaDTO {
+public class SituacaoMatriculaUfrnDTO {
     
     private Integer idSituacaoMatricula;
     private String descricao;

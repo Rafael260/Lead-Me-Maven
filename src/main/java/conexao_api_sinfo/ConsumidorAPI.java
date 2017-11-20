@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package conexao;
+package conexao_api_sinfo;
 
-import dto.DiscenteDTO;
-import dto.MatriculaComponenteDTO;
-import dto.SituacaoMatriculaDTO;
-import dto.UsuarioDTO;
+import dto.DiscenteUfrnDTO;
+import dto.MatriculaComponenteUfrnDTO;
+import dto.SituacaoMatriculaUfrnDTO;
+import dto.UsuarioUfrnDTO;
 import excecoes.JsonStringInvalidaException;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -49,7 +49,7 @@ public class ConsumidorAPI {
 
     private static ConsumidorAPI instance = new ConsumidorAPI();
     private String accessToken;
-    private List<SituacaoMatriculaDTO> situacoesMatricula;
+    private List<SituacaoMatriculaUfrnDTO> situacoesMatricula;
 
     private ConsumidorAPI() {
         situacoesMatricula = null;
@@ -115,7 +115,7 @@ public class ConsumidorAPI {
         return result.toString();
     }
 
-    public UsuarioDTO coletarUsuarioLogado() {
+    public UsuarioUfrnDTO coletarUsuarioLogado() {
         try {
             String resultado = fazerRequisicao(URL_INFO_USUARIO, GET);
             return JsonToObject.toUsuario(resultado);
@@ -130,9 +130,9 @@ public class ConsumidorAPI {
     }
     
     
-    public List<DiscenteDTO> coletarVinculos(String cpf){
+    public List<DiscenteUfrnDTO> coletarVinculos(String cpf){
         String urlIdDiscente = URL_DISCENTE.replace("#cpf#", cpf);
-        List<DiscenteDTO> vinculos;
+        List<DiscenteUfrnDTO> vinculos;
         try {
             String resultado = fazerRequisicao(urlIdDiscente, GET);
             vinculos = JsonToObject.toDiscentes(resultado);
@@ -147,9 +147,14 @@ public class ConsumidorAPI {
         return null;
     }
     
-    public List<MatriculaComponenteDTO> coletarMatriculas(Integer idDiscente){
+    public DiscenteUfrnDTO carregarUltimoVinculo(String cpf){
+        List<DiscenteUfrnDTO> vinculos = coletarVinculos(cpf);
+        return vinculos.get(vinculos.size() - 1);
+    }
+    
+    public List<MatriculaComponenteUfrnDTO> coletarMatriculas(Integer idDiscente){
         String urlMatriculas = URL_MATRICULAS.replace("#id-discente#", idDiscente.toString());
-        List<MatriculaComponenteDTO> matriculas;
+        List<MatriculaComponenteUfrnDTO> matriculas;
         try {
             String resultado = fazerRequisicao(urlMatriculas, GET);
             System.out.println("MATRICULAS: " + resultado);
@@ -174,7 +179,7 @@ public class ConsumidorAPI {
                 String resultado = fazerRequisicao(URL_SITUACOES_MATRICULA, GET);
                 situacoesMatricula = JsonToObject.paraSituacoes(resultado);
             }
-            for(SituacaoMatriculaDTO situacao: situacoesMatricula){
+            for(SituacaoMatriculaUfrnDTO situacao: situacoesMatricula){
                 if(situacao.getIdSituacaoMatricula().equals(idSituacaoMatricula)){
                     System.out.println("Achou a situação: " + situacao.getDescricao());
                     return situacao.getDescricao();
