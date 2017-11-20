@@ -5,6 +5,8 @@
  */
 package fabricas;
 
+import com.mycompany.lead.me.CarregadorTelaLogin;
+import com.mycompany.lead.me.CarregadorTelaLoginUFRN;
 import extrator_dados.Extrator;
 import extrator_dados.ExtratorUFRN;
 import service.ComparadorDisciplinaDificil;
@@ -45,6 +47,11 @@ public class UFRNFactory implements AbstractFactory{
     @Override
     public Extrator createExtrator() {
         return new ExtratorUFRN();
+    }
+
+    @Override
+    public CarregadorTelaLogin createCarregadorTelaLogin() {
+        return new CarregadorTelaLoginUFRN();
     }
     
 }

@@ -14,17 +14,11 @@
             <Font name="Linux Biolinum G Regular" size="36.0" />
          </font>
       </Label>
-      <TextField id="txtLogin" fx:id="txtLogin" layoutX="224.0" layoutY="146.0" />
-      <Label layoutX="224.0" layoutY="129.0" text="Login">
+      <TextField id="txtLogin" fx:id="txtIdDiscente" layoutX="226.0" layoutY="183.0" />
+      <Label layoutX="226.0" layoutY="166.0" text="Id do discente">
          <font>
             <Font name="Linux Biolinum G Regular" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="224.0" layoutY="179.0" text="Senha">
-         <font>
-            <Font name="Linux Biolinum G Regular" size="14.0" />
-         </font>
-      </Label>
-      <PasswordField fx:id="txtSenha" layoutX="224.0" layoutY="200.0" />
    </children>
 </AnchorPane>

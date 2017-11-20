@@ -5,6 +5,7 @@
  */
 package fabricas;
 
+import com.mycompany.lead.me.CarregadorTelaLogin;
 import extrator_dados.Extrator;
 import extrator_dados.ExtratorEstacio;
 import service.ComparadorDisciplinaDificil;
@@ -45,5 +46,10 @@ public class EstacioFactory implements AbstractFactory{
     @Override
     public Extrator createExtrator() {
         return new ExtratorEstacio();
+    }
+
+    @Override
+    public CarregadorTelaLogin createCarregadorTelaLogin() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -101,7 +101,7 @@ public class TelaPrincipalController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         service = new ServiceFacadeImpl();
         Aluno alunoLogado = service.coletarAlunoLogado();
-        disciplinas = service.carregarDisciplinasDoCurso(alunoLogado.getCurso());
+        disciplinas = service.coletarDisciplinasDoCurso(alunoLogado.getCurso());
 
         /*estatistica*/
         autoCompleteEstatistica = TextFields.bindAutoCompletion(txtDisciplina, disciplinas);
@@ -120,7 +120,7 @@ public class TelaPrincipalController implements Initializable {
         carregarScatterDaTurma();
         //Tela de sugestoes/simulacoes
         carregarSugestoes(alunoLogado);
-        carregarDisciplinasMaisDificeis(alunoLogado.getCurso());
+//        carregarDisciplinasMaisDificeis(alunoLogado.getCurso());
     }
 
     @FXML

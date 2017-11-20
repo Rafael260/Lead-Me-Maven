@@ -70,7 +70,7 @@
                                                                   <Label layoutX="41.0" layoutY="439.0" text="Selecione a turma" />
                                                                   <ScatterChart fx:id="graficoFrequenciaNotas" layoutX="282.0" layoutY="507.0" prefHeight="234.0" prefWidth="400.0" title="Frequência x Média">
                                                                     <xAxis>
-                                                                      <NumberAxis label="Nº presenças" side="BOTTOM" />
+                                                                      <NumberAxis label="Nº faltas" side="BOTTOM" />
                                                                     </xAxis>
                                                                     <yAxis>
                                                                       <NumberAxis label="Média" side="LEFT" upperBound="10.0" />

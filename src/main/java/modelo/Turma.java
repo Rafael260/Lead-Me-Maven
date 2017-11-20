@@ -87,6 +87,6 @@ public class Turma implements Serializable{
     }
     
     public String toString(){
-        return this.disciplina.getCodigo() + " - " + this.periodoLetivo;
+        return this.disciplina.getCodigo() + " - " + this.periodoLetivo + " - " + this.codigoTurma;
     }
 }

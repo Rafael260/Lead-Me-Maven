@@ -8,10 +8,10 @@ package extrator_dados;
 import base_dados.DisciplinaDAO;
 import base_dados.TurmaDAO;
 import static extrator_dados.ExtratorUFRN.camposValidos;
-import static extrator_dados.ExtratorUFRN.prepararCampos;
 import javax.persistence.PersistenceException;
 import modelo.Disciplina;
 import modelo.Turma;
+import static extrator_dados.ExtratorUFRN.prepararLinha;
 
 /**
  *
@@ -25,6 +25,7 @@ public class TurmaParser implements Runnable {
     private TurmaDAO turmaDAO;
     
     public TurmaParser(String linha){
+        linha = prepararLinha(linha);
         dadosTurma = linha.split(ExtratorUFRN.SEPARADOR_CSV);
         disciplinaDAO = DisciplinaDAO.getInstance();
         turmaDAO = TurmaDAO.getInstance();
@@ -37,7 +38,6 @@ public class TurmaParser implements Runnable {
         if (dadosTurma.length <= 24 || !camposValidos(dadosTurma, 0, 1, 5, 6, 9, 10, 22, 24)) {
             return;
         }
-        prepararCampos(dadosTurma, 0, 1, 5, 6, 9, 10, 22, 24);
         if (!dadosTurma[6].equals("GRADUAÇÃO") || !dadosTurma[22].equals("CONSOLIDADA") || !dadosTurma[24].equals("Presencial")) {
             return;
         }

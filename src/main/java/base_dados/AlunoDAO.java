@@ -29,7 +29,7 @@ public class AlunoDAO extends AbstractDAO<Aluno,String> {
 
     private static AlunoDAO instance = new AlunoDAO();
 
-    private AlunoDAO() {
+    public AlunoDAO() {
         super(Aluno.class);
     }
 

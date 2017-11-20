@@ -5,9 +5,12 @@
  */
 package extrator_dados;
 
+import base_dados.AlunoDAO;
 import base_dados.CursoDAO;
 import base_dados.DisciplinaDAO;
+import base_dados.MatriculaDAO;
 import base_dados.MatrizCurricularDAO;
+import base_dados.TurmaDAO;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -30,9 +33,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 import javax.persistence.PersistenceException;
+import modelo.Aluno;
 import modelo.Curso;
 import modelo.Disciplina;
+import modelo.Matricula;
 import modelo.MatrizCurricular;
+import modelo.Turma;
 import util.ThreadUtil;
 
 /**
@@ -46,26 +52,30 @@ public class ExtratorUFRN extends Extrator {
     private CursoDAO cursoDAO;
     private MatrizCurricularDAO matrizCurricularDAO;
     private DisciplinaDAO disciplinaDAO;
+    private TurmaDAO turmaDAO;
+    private MatriculaDAO matriculaDAO;
+    private AlunoDAO alunoDAO;
 
     public ExtratorUFRN() {
         cursoDAO = CursoDAO.getInstance();
         matrizCurricularDAO = MatrizCurricularDAO.getInstance();
         disciplinaDAO = DisciplinaDAO.getInstance();
+        turmaDAO = TurmaDAO.getInstance();
+        matriculaDAO = MatriculaDAO.getInstance();
+        alunoDAO = AlunoDAO.getInstance();
     }
 
     public static boolean camposValidos(String[] linha, int... indices) {
         for (int i : indices) {
-            if (linha[i] == null || linha[i].isEmpty() || linha[i].equals("\"\"")) {
+            if (linha[i] == null || linha[i].isEmpty()) {
                 return false;
             }
         }
         return true;
     }
 
-    public static void prepararCampos(String[] dados, int... indices) {
-        for (int i : indices) {
-            dados[i] = dados[i].replace("\"", "");
-        }
+    public static String prepararLinha(String linha) {
+        return linha.replace("\"", "");
     }
 
     @Override
@@ -76,11 +86,11 @@ public class ExtratorUFRN extends Extrator {
             String[] dadosCurso;
             Curso curso;
             while ((linha = lerArq.readLine()) != null) {
+                linha = prepararLinha(linha);
                 dadosCurso = linha.split(SEPARADOR_CSV);
                 if (!camposValidos(dadosCurso, 0, 1, 4, 5, 6, 7)) {
                     continue;
                 }
-                prepararCampos(dadosCurso, 0, 1, 6, 7);
                 curso = new Curso();
                 curso.setId(Integer.parseInt(dadosCurso[0]));
                 curso.setNome(dadosCurso[1]);
@@ -113,11 +123,11 @@ public class ExtratorUFRN extends Extrator {
             MatrizCurricular matriz;
             Curso curso;
             while ((linha = lerArq.readLine()) != null) {
+                linha = prepararLinha(linha);
                 dadosMatriz = linha.split(SEPARADOR_CSV);
                 if (!camposValidos(dadosMatriz, 0, 2, 3, 4)) {
                     continue;
                 }
-                prepararCampos(dadosMatriz, 0, 2, 3, 4);
                 matriz = new MatrizCurricular();
                 matriz.setId(Integer.parseInt(dadosMatriz[0]));
                 matriz.setNomeMatriz(dadosMatriz[2]);
@@ -156,14 +166,13 @@ public class ExtratorUFRN extends Extrator {
             String linha = lerArq.readLine();
             String[] dados;
             Disciplina disciplina;
-            while ((linha = lerArq.readLine())!= null ) {
+            while ((linha = lerArq.readLine()) != null) {
+                linha = prepararLinha(linha);
                 dados = linha.split(SEPARADOR_CSV);
                 System.out.println("Lendo linha da disciplina");
                 if (dados.length <= 19 || !camposValidos(dados, 0, 2, 3, 4, 9)) {
                     continue;
                 }
-
-                prepararCampos(dados, 0, 2, 3, 4, 9, 16, 17, 18);
                 //So interessa as disciplinas de graduacao
                 if (!dados[3].toUpperCase().equals("G")) {
                     continue;
@@ -209,16 +218,17 @@ public class ExtratorUFRN extends Extrator {
     @Override
     public void atualizarListaDeAlunos() {
         List<Thread> threads = new ArrayList<>();
-        Thread threadLeitor;
+        Thread thread;
         for (int ano = 2011; ano <= 2017; ano++) {
             for (int periodo = 1; periodo <= 2; periodo++) {
-                threadLeitor = new LeitorArquivoMatriculaUFRN(ano, periodo);
-                threadLeitor.start();
-                threads.add(threadLeitor);
+                System.out.println("Criando a thread para o semestre "+ano+"."+periodo);
+                thread = new LeitorArquivoMatriculaUFRN(ano, periodo);
+                thread.start();
+                threads.add(thread);
             }
+            ThreadUtil.esperarThreads(threads);
+            System.out.println(">>>>>>>>>>>>>>>>>TERMINOU DE CONFERIR OS ALUNOS!");
         }
-        ThreadUtil.esperarThreads(threads);
-        System.out.println(">>>>>>>>>>>>>>>>>TERMINOU DE CONFERIR OS ALUNOS!");
     }
 
     @Override

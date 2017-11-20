@@ -7,9 +7,9 @@ package extrator_dados;
 
 import base_dados.DisciplinaDAO;
 import static extrator_dados.ExtratorUFRN.camposValidos;
-import static extrator_dados.ExtratorUFRN.prepararCampos;
 import javax.persistence.PersistenceException;
 import modelo.Disciplina;
+import static extrator_dados.ExtratorUFRN.prepararLinha;
 
 /**
  *
@@ -21,6 +21,7 @@ public class DisciplinaParser implements Runnable {
     private DisciplinaDAO disciplinaDAO;
     
     public DisciplinaParser(String linha) {
+        linha = prepararLinha(linha);
         dados = linha.split(ExtratorUFRN.SEPARADOR_CSV);
         disciplinaDAO = DisciplinaDAO.getInstance();
     }
@@ -29,18 +30,14 @@ public class DisciplinaParser implements Runnable {
     public void run() {
         Disciplina disciplina;
         if (dados.length <= 19) {
-//            disciplinaDAO.fecharConexao();
             return;
         }
         if (!camposValidos(dados, 0, 2, 3, 4, 9)) {
-//            disciplinaDAO.fecharConexao();
             return;
         }
 
-        prepararCampos(dados, 0, 2, 3, 4, 9, 16, 17, 18);
         //So interessa as disciplinas de graduacao
         if (!dados[3].toUpperCase().equals("G")) {
-//            disciplinaDAO.fecharConexao();
             return;
         }
         disciplina = new Disciplina();
@@ -57,8 +54,6 @@ public class DisciplinaParser implements Runnable {
         }catch(PersistenceException e){
             System.out.println("NAO SALVOU A DISCIPLINA");
         }
-            
-        
 //        disciplinaDAO.fecharConexao();
     }
 

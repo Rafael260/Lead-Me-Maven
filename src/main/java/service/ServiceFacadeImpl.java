@@ -63,8 +63,8 @@ public class ServiceFacadeImpl implements ServiceFacade {
     }
 
     @Override
-    public List<Disciplina> carregarDisciplinasDoCurso(Curso curso) {
-        return cursoService.carregarDisciplinasDoCurso(curso);
+    public List<Disciplina> coletarDisciplinasDoCurso(Curso curso) {
+        return cursoService.coletarDisciplinasDoCurso(curso);
     }
 
     @Override

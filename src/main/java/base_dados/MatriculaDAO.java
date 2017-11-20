@@ -11,8 +11,7 @@ import modelo.Matricula;
  *
  * @author rafao
  */
-public class MatriculaDAO extends AbstractDAO<Matricula, Integer>{
-    
+public class MatriculaDAO extends AbstractDAO<Matricula,Integer>{
     private static MatriculaDAO instance = new MatriculaDAO();
     
     private MatriculaDAO(){

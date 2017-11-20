@@ -37,13 +37,14 @@ public class CursoService {
     }
     
     
-    public Curso carregarCurso(String nomeCurso) throws DataException{
-        Curso curso = cursoDAO.carregarCurso(nomeCurso);
-        bibliotecaMineracao.gerarArquivoParaAssociarDisciplinas(curso);
+    public Curso carregarCurso(Integer id) throws DataException{
+        Curso curso = cursoDAO.encontrar(id);
+//        bibliotecaMineracao.gerarArquivoParaAssociarDisciplinas(curso);
+        System.out.println("ENCONTROU O CURSO");
         return curso;
     }
     
-    public List<Disciplina> carregarDisciplinasDoCurso(Curso curso){
+    public List<Disciplina> coletarDisciplinasDoCurso(Curso curso){
         return curso.coletarDisciplinas();
     }
     

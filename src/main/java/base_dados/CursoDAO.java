@@ -28,7 +28,7 @@ public class CursoDAO extends AbstractDAO<Curso,Integer>{
     private static CursoDAO instance = new CursoDAO();
     private AlunoDAO alunoDAO;
     
-    private CursoDAO(){
+    public CursoDAO(){
         super(Curso.class);
         alunoDAO = AlunoDAO.getInstance();
     }

@@ -15,7 +15,7 @@ public class TurmaDAO extends AbstractDAO<Turma,Integer>{
     
     private static TurmaDAO instance = new TurmaDAO();
     
-    private TurmaDAO(){
+    public TurmaDAO(){
         super(Turma.class);
     }
     

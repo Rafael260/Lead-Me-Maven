@@ -5,13 +5,14 @@
  */
 package service;
 
+import base_dados.TurmaDAO;
+import conexao.ConsumidorAPI;
+import dto.MatriculaComponenteDTO;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import modelo.Aluno;
-import modelo.Disciplina;
 import modelo.Matricula;
+import modelo.Turma;
 
 /**
  *
@@ -19,23 +20,39 @@ import modelo.Matricula;
  */
 public class AlunoService {
     
-    public Map<String,List<Disciplina>> coletarMatriculasAgrupadasPorPeriodoLetivo(Aluno aluno, boolean apenasAprovados){
-        Map<String,List<Disciplina>> disciplinasAgrupadas = new HashMap<>();
-        List<Disciplina> disciplinasDoPeriodo;
-        String periodoLetivo;
-        List<Matricula> matriculas = aluno.getMatriculas();
-        for (Matricula matricula: matriculas){
-            if (apenasAprovados && !matricula.situacaoAprovada()){
+    private ConsumidorAPI consumidor;
+    private TurmaDAO turmaDAO;
+    
+    public AlunoService(){
+        consumidor = ConsumidorAPI.getInstance();
+        turmaDAO = TurmaDAO.getInstance();
+    }
+    
+    public void carregarMatriculasDoAluno(Aluno aluno){
+        List<MatriculaComponenteDTO> matriculasDTO = consumidor.coletarMatriculas(Integer.parseInt(aluno.getId()));
+        List<Matricula> matriculas = new ArrayList<>();
+        Matricula matricula;
+        Turma turma;
+        for(MatriculaComponenteDTO matriculaDTO: matriculasDTO){
+            System.out.println("Carregando a matricula");
+            matricula = new Matricula();
+            matricula.setAluno(aluno);
+            turma = turmaDAO.encontrar(matriculaDTO.getIdTurma());
+            if (turma == null){
+                System.err.println("Não encontrou a turma para a matricula recebida da API");
                 continue;
             }
-            periodoLetivo = matricula.getTurma().getPeriodoLetivo();
-            if (!disciplinasAgrupadas.containsKey(periodoLetivo)){
-                disciplinasAgrupadas.put(periodoLetivo, new ArrayList<Disciplina>());
+            matricula.setTurma(turma);
+            if(matriculaDTO.getConceito()){
+                System.err.println("Conceito true, entao a nota n eh double");
+                continue;
             }
-            disciplinasDoPeriodo = disciplinasAgrupadas.get(periodoLetivo);
-            disciplinasDoPeriodo.add(matricula.getTurma().getDisciplina());
-            disciplinasAgrupadas.put(periodoLetivo, disciplinasDoPeriodo);
+//            matricula.setMedia((Double) matriculaDTO.getMediaFinal());
+            String situacao = consumidor.coletarSituacaoMatricula(matriculaDTO.getIdSituacaoMatricula());
+            matricula.setSituacao(situacao);
+            matricula.setNumeroFaltas(matriculaDTO.getFaltas().doubleValue());
+            matriculas.add(matricula);
         }
-        return disciplinasAgrupadas;
+        aluno.setMatriculas(matriculas);
     }
 }

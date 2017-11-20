@@ -9,11 +9,11 @@ import base_dados.DisciplinaDAO;
 import base_dados.MatrizCurricularDAO;
 import base_dados.MatrizDisciplinaDAO;
 import static extrator_dados.ExtratorUFRN.camposValidos;
-import static extrator_dados.ExtratorUFRN.prepararCampos;
 import javax.persistence.PersistenceException;
 import modelo.Disciplina;
 import modelo.MatrizCurricular;
 import modelo.MatrizDisciplina;
+import static extrator_dados.ExtratorUFRN.prepararLinha;
 
 /**
  *
@@ -28,6 +28,7 @@ public class MatrizDisciplinaParser implements Runnable {
     private MatrizDisciplinaDAO matrizDisciplinaDAO;
 
     public MatrizDisciplinaParser(String linha) {
+        linha = prepararLinha(linha);
         dados = linha.split(ExtratorUFRN.SEPARADOR_CSV);
         matrizCurricularDAO = MatrizCurricularDAO.getInstance();
         disciplinaDAO = DisciplinaDAO.getInstance();
@@ -40,10 +41,8 @@ public class MatrizDisciplinaParser implements Runnable {
         MatrizCurricular curriculo;
         Disciplina disciplina;
         if (!camposValidos(dados, 0, 1, 2, 3, 4)) {
-//            fecharConexoes();
             return;
         }
-        prepararCampos(dados, 0, 1, 2, 3, 4);
         md = new MatrizDisciplina();
         md.setId(Integer.parseInt(dados[0]));
         curriculo = matrizCurricularDAO.encontrar(Integer.parseInt(dados[1]));

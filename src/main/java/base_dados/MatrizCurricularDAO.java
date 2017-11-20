@@ -15,7 +15,7 @@ public class MatrizCurricularDAO extends AbstractDAO<MatrizCurricular,Integer>{
     
     private static MatrizCurricularDAO instance = new MatrizCurricularDAO();
     
-    private MatrizCurricularDAO(){
+    public MatrizCurricularDAO(){
         super(MatrizCurricular.class);
     }
     

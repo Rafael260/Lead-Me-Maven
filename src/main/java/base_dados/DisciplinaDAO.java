@@ -14,7 +14,7 @@ import modelo.Disciplina;
 public class DisciplinaDAO extends AbstractDAO<Disciplina,Integer>{
     private static DisciplinaDAO instance = new DisciplinaDAO();
     
-    private DisciplinaDAO(){
+    public DisciplinaDAO(){
         super(Disciplina.class);
     }
     

@@ -13,7 +13,7 @@ import modelo.MatrizDisciplina;
 public interface ServiceFacade {
     public Aluno autenticar(String usuario, String senha) throws DataException, AutenticacaoException;
     public Aluno coletarAlunoLogado();
-    public List<Disciplina> carregarDisciplinasDoCurso(Curso curso);
+    public List<Disciplina> coletarDisciplinasDoCurso(Curso curso);
     public Double coletarMediaAprovacao(Disciplina disciplina);
     public List<MatrizDisciplina> carregarDisciplinasDisponiveis(Curso curso); 
     public List<Disciplina> coletarDisciplinasMaisDificeis(Curso curso);

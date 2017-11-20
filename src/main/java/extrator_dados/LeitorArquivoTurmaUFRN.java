@@ -10,17 +10,11 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.stream.Stream;
 import util.ThreadUtil;
 
 /**
@@ -54,6 +48,7 @@ public class LeitorArquivoTurmaUFRN extends Thread{
             }
             ThreadUtil.esperarThreads(tasks);
             lerArq.close();
+            executorService.shutdown();
             System.out.println("FINALIZOU A EXTRAÇÃO DAS TURMAS!!");
         }catch(IOException e){
             System.out.println(e.getMessage());

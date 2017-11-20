@@ -19,7 +19,7 @@ public class MatriculaServiceUFRN extends MatriculaService{
     
     @Override
     public boolean situacaoAprovada(Matricula matricula){
-        return matricula.getSituacao().startsWith("APR");
+        return matricula.getSituacao().toUpperCase().contains("APROVADO");
     }
     
 }

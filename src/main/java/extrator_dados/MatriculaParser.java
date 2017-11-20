@@ -7,8 +7,9 @@ package extrator_dados;
 
 import base_dados.AlunoDAO;
 import base_dados.CursoDAO;
-import base_dados.MatriculaDAO;
+//import base_dados.MatriculaDAO;
 import base_dados.TurmaDAO;
+import static extrator_dados.ExtratorUFRN.prepararLinha;
 import javax.persistence.PersistenceException;
 import modelo.Aluno;
 import modelo.Curso;
@@ -26,14 +27,15 @@ public class MatriculaParser implements Runnable {
     private TurmaDAO turmaDAO;
     private CursoDAO cursoDAO;
     private AlunoDAO alunoDAO;
-    private MatriculaDAO matriculaDAO;
+//    private MatriculaDAO matriculaDAO;
 
     public MatriculaParser(String linha) {
+        linha = prepararLinha(linha);
         this.dadosMatricula = linha.split(ExtratorUFRN.SEPARADOR_CSV);
         turmaDAO = TurmaDAO.getInstance();
         cursoDAO = CursoDAO.getInstance();
         alunoDAO = AlunoDAO.getInstance();
-        matriculaDAO = MatriculaDAO.getInstance();
+//        matriculaDAO = MatriculaDAO.getInstance();
     }
 
     @Override
@@ -43,13 +45,9 @@ public class MatriculaParser implements Runnable {
         Turma turma;
         Curso curso;
         if (dadosMatricula.length < 10 || !ExtratorUFRN.camposValidos(dadosMatricula, 0, 1, 2, 4, 6, 7, 8, 9)) {
-//            fecharConexoes();
             return;
         }
-        ExtratorUFRN.prepararCampos(dadosMatricula, 0, 1, 2, 4, 6, 7, 8, 9);
-
         if (!dadosMatricula[9].contains("APROVADO") && !dadosMatricula[9].contains("REPROVADO")) {
-//            fecharConexoes();
             return;
         }
         aluno = new Aluno();
@@ -57,8 +55,12 @@ public class MatriculaParser implements Runnable {
         aluno.setId(dadosMatricula[1]);
         turma = turmaDAO.encontrar(Integer.parseInt(dadosMatricula[0]));
         curso = cursoDAO.encontrar(Integer.parseInt(dadosMatricula[2]));
-        if (turma == null || curso == null) {
-//            fecharConexoes();
+        if (turma == null) {
+            System.out.println("Turma nula");
+            return;
+        }
+        if(curso == null){
+            System.out.println("Curso nulo");
             return;
         }
         aluno.setCurso(curso);
@@ -70,6 +72,7 @@ public class MatriculaParser implements Runnable {
             System.err.println("NAO SALVOU O ALUNO");
             aluno = alunoDAO.encontrar(aluno.getId());
             if(aluno == null){
+                System.err.println(" >>>>> Nao achou o aluno que tbm nao conseguiu inserir!! <<<<<<");
                 return;
             }
         }
@@ -79,7 +82,7 @@ public class MatriculaParser implements Runnable {
         matricula.setNumeroFaltas(Double.parseDouble(dadosMatricula[8]));
         matricula.setSituacao(dadosMatricula[9]);
         try{
-            matriculaDAO.salvar(matricula);
+//            matriculaDAO.salvar(matricula);
             System.out.println("Salvou matricula");
         }catch(PersistenceException e){
             System.err.println("NAO SALVOU A MATRICULA");
@@ -89,7 +92,7 @@ public class MatriculaParser implements Runnable {
     
     private void fecharConexoes(){
         alunoDAO.fecharConexao();
-        matriculaDAO.fecharConexao();
+//        matriculaDAO.fecharConexao();
         cursoDAO.fecharConexao();
         turmaDAO.fecharConexao();
     }
