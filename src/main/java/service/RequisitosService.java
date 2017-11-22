@@ -27,7 +27,7 @@ public abstract class RequisitosService {
     MatriculaService matriculaService;
     
     public RequisitosService(){
-        matriculaService = Fabrica.getInstance().getFactory().createMatriculaService();
+        matriculaService = new MatriculaService();
     }
     
     public boolean pagouMateria(Aluno aluno, Disciplina disciplina, boolean considerarEquivalentes){

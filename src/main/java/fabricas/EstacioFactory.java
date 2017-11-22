@@ -9,11 +9,9 @@ import com.mycompany.lead.me.CarregadorTelaLogin;
 import extrator_dados.Extrator;
 import extrator_dados.ExtratorEstacio;
 import service.AlunoService;
-import service.ComparadorDisciplinaDificil;
 import service.ComparadorMatrizDisciplina;
 import service.ComparadorMatrizDisciplinaEstacio;
 import service.MatriculaService;
-import service.MatriculaServiceEstacio;
 import service.RequisitosService;
 import service.RequisitosServiceEstacio;
 
@@ -26,11 +24,6 @@ public class EstacioFactory implements AbstractFactory{
     @Override
     public RequisitosService createRequisitosService() {
         return new RequisitosServiceEstacio();
-    }
-
-    @Override
-    public MatriculaService createMatriculaService() {
-        return new MatriculaServiceEstacio();
     }
 
 

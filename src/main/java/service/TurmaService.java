@@ -19,7 +19,7 @@ public class TurmaService {
     private MatriculaService matriculaService;
     
     public TurmaService(){
-        matriculaService = Fabrica.getInstance().getFactory().createMatriculaService();
+        matriculaService = new MatriculaService();
     }
     public Double coletarMediaAprovacao(Turma turma){
         Double aprovados = 0.0;

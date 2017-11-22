@@ -14,7 +14,6 @@ import service.AlunoServiceUFRN;
 import service.ComparadorMatrizDisciplina;
 import service.ComparadorMatrizDisciplinaUFRN;
 import service.MatriculaService;
-import service.MatriculaServiceUFRN;
 import service.RequisitosService;
 import service.RequisitosServiceUFRN;
 
@@ -32,11 +31,6 @@ public class UFRNFactory implements AbstractFactory {
     @Override
     public RequisitosService createRequisitosService() {
         return new RequisitosServiceUFRN();
-    }
-
-    @Override
-    public MatriculaService createMatriculaService() {
-        return new MatriculaServiceUFRN();
     }
 
     @Override
