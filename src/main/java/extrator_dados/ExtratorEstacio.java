@@ -10,6 +10,7 @@ import base_dados.CursoDAO;
 import base_dados.DisciplinaDAO;
 import base_dados.MatriculaDAO;
 import base_dados.MatrizCurricularDAO;
+import base_dados.MatrizDisciplinaDAO;
 import base_dados.TurmaDAO;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -22,9 +23,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.PersistenceException;
+import modelo.Aluno;
 import modelo.Curso;
 import modelo.Disciplina;
+import modelo.Matricula;
 import modelo.MatrizCurricular;
+import modelo.MatrizDisciplina;
 import modelo.Turma;
 import util.ThreadUtil;
 
@@ -41,6 +45,8 @@ public class ExtratorEstacio extends Extrator{
     private TurmaDAO turmaDAO;
     private MatriculaDAO matriculaDAO;
     private AlunoDAO alunoDAO;
+    private MatrizDisciplinaDAO matrizDisciplinaDAO;
+
     
     public ExtratorEstacio() {
         cursoDAO = CursoDAO.getInstance();
@@ -176,24 +182,27 @@ public class ExtratorEstacio extends Extrator{
                         linha = prepararLinha(linha);
                         dados = linha.split(SEPARADOR_CSV);
                         System.out.println("Lendo linha da disciplina");
-                        if (dados.length <= 7 || !camposValidos(dados, 0, 1, 2, 3, 4, 5, 6)) {
+                        if (dados.length <= 3 || !camposValidos(dados, 0, 1, 2)) {
                             continue;
                         }
                         turma = new Turma();
-                        turma.setPeriodoLetivo(dados[0]);
                         turma.setId(Integer.parseInt(dados[0]));
-                        turma.setCodigoTurma(dados[2]);
-                        disciplina.setEquivalencias(dados[3] == null ? "" : dados[3]);
-                        disciplina.setPreRequisitos(dados[4] == null ? "" : dados[4]);
-                        disciplina.setCoRequisitos(dados[5] == null ? "" : dados[5]);
-                        disciplina.setId(Integer.parseInt(dados[6]));
-                     try {
-                    turmaDAO.salvar(turma);
-                    System.out.println("Salvou a disciplina");
-                     } catch (PersistenceException e) {
-                    System.out.println("NAO SALVOU A DISCIPLINA");
-                }
-            }
+                        turma.setCodigoTurma(dados[1]);
+                        
+                        Disciplina disciplina = disciplinaDAO.encontrar(Integer.parseInt(dados[2]));
+                        if (disciplina == null) {
+                            System.out.println("Disciplina para a turma eh nula");
+                            return;
+                        }
+                        turma.setDisciplina(disciplina);
+                        turma.setPeriodoLetivo("" + ano + "." + periodo);
+                        try{
+                        turmaDAO.salvar(turma);
+                        System.out.println("Salvou a turma");
+                        }catch(PersistenceException e){
+                             System.out.println("NAO SALVOU A TURMA");
+                        }
+                    }
             lerArq.close();
             System.out.println(">>>>>>>>>>>>>>>>>TERMINOU DE CONFERIR AS DISCIPLINAS!");
         } catch (IOException e) {
@@ -207,12 +216,111 @@ public class ExtratorEstacio extends Extrator{
 
     @Override
     public void atualizarListaDeAlunos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int ano = 2016; ano <= 2017; ano++) {
+            for (int periodo = 1; periodo <= 2; periodo++) {
+                BufferedReader lerArq;
+                try {
+                    lerArq = new BufferedReader(new InputStreamReader(new FileInputStream("\\matriculas\\matricula-" + ano + "." + periodo + ".csv"), "UTF-8"));
+                    System.err.println("INICIANDO LEITURA DO ARQUIVO DE" + ano + "." + periodo);
+                    String linha = lerArq.readLine();
+                    String[] dados;
+                    while ((linha = lerArq.readLine()) != null) {
+                        dados = linha.split(SEPARADOR_CSV);
+                        Aluno aluno;
+                        Matricula matricula;
+                        Turma turma;
+                        Curso curso;
+                        if (dados.length < 10 || !ExtratorUFRN.camposValidos(dados, 0, 1, 2, 3, 4, 5,6)) {
+                            return;
+                        }
+                        if (!dados[5].contains("APROVADO") && !dados[5].contains("REPROVADO")) {
+                            return;
+                        }
+                        aluno = new Aluno();
+                        matricula = new Matricula();
+                        aluno.setId(dados[1]);//
+                        turma = turmaDAO.encontrar(Integer.parseInt(dados[0]));//
+                        curso = cursoDAO.encontrar(Integer.parseInt(dados[2]));//
+                        if (turma == null) {
+                            System.out.println("Turma nula");
+                            return;
+                        }
+                        if (curso == null) {
+                            System.out.println("Curso nulo");
+                            return;
+                        }
+                        aluno.setCurso(curso);
+                        aluno.setNome(dados[1]);
+                        try {
+                            aluno = alunoDAO.salvar(aluno);
+                            System.out.println("Salvou aluno");
+                        } catch (PersistenceException e) {
+                            System.out.println(e.getMessage());
+                            System.err.println("NAO SALVOU O ALUNO");
+                            aluno = alunoDAO.encontrar(aluno.getId());
+                            if (aluno == null) {
+                                System.err.println(" >>>>> Nao achou o aluno que tbm nao conseguiu inserir!! <<<<<<");
+                                return;
+                            }
+                        }
+                        matricula.setId(Integer.parseInt(dados[6]));
+                        matricula.setAluno(aluno);
+                        matricula.setTurma(turma);
+                        matricula.setMedia(Double.parseDouble(dados[3]));
+                        matricula.setNumeroFaltas(Double.parseDouble(dados[4]));
+                        matricula.setSituacao(dados[5]);
+                        try {
+                            matriculaDAO.salvar(matricula);
+                            System.out.println("Salvou matricula");
+                        } catch (PersistenceException e) {
+                            System.err.println("NAO SALVOU A MATRICULA");
+                        }
+                        System.out.println("Lendo a linha do arquivo " + ano + "." + periodo);
+
+                    }
+                    lerArq.close();
+                    System.out.println("FINALIZOU A EXTRAÇÃO DAS MATRÍCULAS DO ARQUIVO " + ano + "." + periodo + "!!");
+                } catch (IOException ioe) {
+                    System.out.println(ioe.getLocalizedMessage());
+                }
+
+            }
+        }
     }
 
     @Override
     public void atualizarListaDeComponentesDasMatrizes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            BufferedReader lerArq = new BufferedReader(new InputStreamReader(new FileInputStream("\\instancia\\gradeDireito.csv"), "UTF-8"));
+            String linha = lerArq.readLine();
+            String[] dadosMatriz;
+            MatrizDisciplina md;
+            MatrizCurricular curriculo;
+            Disciplina disciplina;
+           
+            while ((linha = lerArq.readLine()) != null) {
+                linha = prepararLinha(linha);
+                dadosMatriz = linha.split(SEPARADOR_CSV);
+                md = new MatrizDisciplina();
+                md.setId(Integer.parseInt(dadosMatriz[0]));
+                 if (!camposValidos(dadosMatriz, 0, 1, 2, 3, 4)) {
+                     return;
+                 }
+                
+                
+                try {
+                    matrizDisciplinaDAO.salvar(md);
+                } catch (PersistenceException e) {
+                    System.out.println("Registro nao inserido no banco");
+                }
+            }
+            lerArq.close();
+            System.out.println(">>>>>>>>>>>>>>>>>TERMINOU DE CONFERIR OS CURSOS!");
+        } catch (FileNotFoundException | UnsupportedEncodingException ex) {
+            Logger.getLogger(ExtratorUFRN.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     @Override
