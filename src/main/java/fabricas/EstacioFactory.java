@@ -9,6 +9,8 @@ import com.mycompany.lead.me.CarregadorTelaLogin;
 import com.mycompany.lead.me.CarregadorTelaLoginEstacio;
 import extrator_dados.Extrator;
 import extrator_dados.ExtratorEstacio;
+import minerador.AssociacaoStrategy;
+import minerador.UFRNStrategy;
 import service.AlunoService;
 import service.AlunoServiceEstacio;
 import service.ComparadorMatrizDisciplina;
@@ -47,6 +49,11 @@ public class EstacioFactory implements AbstractFactory{
     @Override
     public AlunoService createAlunoService() {
       return new AlunoServiceEstacio(); 
+    }
+
+    @Override
+    public AssociacaoStrategy createAssociacaoStrategy() {
+        return new UFRNStrategy();
     }
     
 }

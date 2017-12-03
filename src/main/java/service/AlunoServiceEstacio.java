@@ -5,6 +5,7 @@
  */
 package service;
 
+import base_dados.TurmaDAO;
 import modelo.Aluno;
 
 /**
@@ -13,6 +14,10 @@ import modelo.Aluno;
  */
 public class AlunoServiceEstacio extends AlunoService{
   
+    //private TurmaDAO turmaDAO;
+    public AlunoServiceEstacio(){
+   // turmaDAO = TurmaDAO.getInstance();
+    }
     @Override
     public void carregarMatriculasDoAluno(Aluno aluno) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

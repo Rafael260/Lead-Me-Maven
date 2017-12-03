@@ -19,7 +19,6 @@ public class ComparadorMatrizDisciplinaUFRN extends ComparadorMatrizDisciplina {
 
     @Override
     public int compare(MatrizDisciplina md1, MatrizDisciplina md2) {
-
         int comparacaoPeriodo = md1.getSemestreIdeal().compareTo(md2.getSemestreIdeal());
         if (comparacaoPeriodo != 0) {
             if (md1.getSemestreIdeal().equals(0)) {

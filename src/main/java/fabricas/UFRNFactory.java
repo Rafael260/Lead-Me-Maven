@@ -9,6 +9,8 @@ import com.mycompany.lead.me.CarregadorTelaLogin;
 import com.mycompany.lead.me.CarregadorTelaLoginUFRN;
 import extrator_dados.Extrator;
 import extrator_dados.ExtratorUFRN;
+import minerador.AssociacaoStrategy;
+import minerador.UFRNStrategy;
 import service.AlunoService;
 import service.AlunoServiceUFRN;
 import service.ComparadorMatrizDisciplina;
@@ -46,6 +48,11 @@ public class UFRNFactory implements AbstractFactory {
     @Override
     public CarregadorTelaLogin createCarregadorTelaLogin() {
         return new CarregadorTelaLoginUFRN();
+    }
+
+    @Override
+    public AssociacaoStrategy createAssociacaoStrategy() {
+        return new UFRNStrategy();
     }
 
 }

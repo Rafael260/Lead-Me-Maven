@@ -13,12 +13,12 @@ public class RequisitosServiceEstacio extends RequisitosService{
 
     @Override
     public String coletarRegexCodigoDisciplina() {
-        return "[A-Z]{3}[0-9]{4}";
+        return "[A-Z]{3}[0-9]{5}";
     }
 
     @Override
     public String coletarExpressaoRequisitosComOperadores(String requisitos) {
-        return requisitos.replace(" & ", "*").replace(" | ", "+");
+        return requisitos.replace(" AND ", "*").replace(" OR ", "+");
     }
     
 }

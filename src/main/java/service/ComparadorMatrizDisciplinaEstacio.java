@@ -17,7 +17,7 @@ public class ComparadorMatrizDisciplinaEstacio extends ComparadorMatrizDisciplin
     @Override
     public int compare(MatrizDisciplina md1, MatrizDisciplina md2) {
         int comparacaoNatureza = md1.getNaturezaDisciplina().compareTo(md2.getNaturezaDisciplina());
-        if (comparacaoNatureza != 0){
+        if (comparacaoNatureza == 0){
             return comparacaoNatureza;
         }
         else{

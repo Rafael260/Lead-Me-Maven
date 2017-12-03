@@ -1,0 +1,104 @@
+Nome,ID,Modalidade,GrauAcademico
+Administração,8266,PRESENCIAL,BACHARELADO
+Agronegócio,9902,EAD,BACHARELADO
+Análise e Desenvolvimento de Sistemas,7504,FLEX,TECNOLÓGICO
+Arquitetura e Urbanismo,7403,PRESENCIAL,BACHARELADO
+Artes Visuais,8123,EAD,LICENCIATURA
+Automação Industrial,4564,FLEX,BACHARELADO
+Biomedicina,8096,PRESENCIAL,BACHARELADO
+Ciências Aeronáuticas,2645,EAD,TECNOLÓGICO
+Ciências Biológicas - Bacharelado,6147,FLEX,BACHARELADO
+Ciências Biológicas - Licenciatura,3899,PRESENCIAL,LICENCIATURA
+Ciências Contábeis,1856,EAD,BACHARELADO
+Ciência da Computação,8889,FLEX,BACHARELADO
+Ciências Econômicas,4423,PRESENCIAL,BACHARELADO
+Cinema - Bacharelado,8288,EAD,BACHARELADO
+Comércio Exterior,8370,FLEX,BACHARELADO
+Computação - Licenciatura,6927,PRESENCIAL,LICENCIATURA
+Comunicação Social,4006,EAD,BACHARELADO
+Comunicação Social - Multimídia,8504,FLEX,TECNOLÓGICO
+Design,4464,PRESENCIAL,TECNOLÓGICO
+Design de Interiores,8122,EAD,TECNOLÓGICO
+Design de Moda,8740,FLEX,TECNOLÓGICO
+Design de Produto,4057,PRESENCIAL,TECNOLÓGICO
+Design Gráfico,1690,EAD,TECNOLÓGICO
+Direito,6895,FLEX,BACHARELADO
+Educação Física - Bacharelado,1246,PRESENCIAL,BACHARELADO
+Educação Física - Licenciatura,4053,PRESENCIAL,LICENCIATURA
+Enfermagem,9604,EAD,BACHARELADO
+Engenharia Ambiental,4559,FLEX,BACHARELADO
+Engenharia Ambiental e Sanitária,3800,PRESENCIAL,BACHARELADO
+Engenharia Civil,8723,EAD,BACHARELADO
+Engenharia da Computação,4640,FLEX,BACHARELADO
+Engenharia de Controle e Automação,1791,PRESENCIAL,BACHARELADO
+Engenharia de Petróleo,1082,EAD,BACHARELADO
+Engenharia de Produção,7662,FLEX,BACHARELADO
+Engenharia de Telecomunicações - Bacharelado,6353,PRESENCIAL,BACHARELADO
+Engenharia Elétrica,8053,EAD,BACHARELADO
+Engenharia Mecânica,5735,FLEX,BACHARELADO
+Engenharia Química,3172,PRESENCIAL,BACHARELADO
+Estética,8175,EAD,TECNOLÓGICO
+Estética e Cosmética,3528,FLEX,TECNOLÓGICO
+Eventos,1905,PRESENCIAL,TECNOLÓGICO
+Farmácia,8360,EAD,BACHARELADO
+Filosofia,2655,FLEX,LICENCIATURA
+Fisioterapia,5724,PRESENCIAL,BACHARELADO
+Fonoaudiologia,4076,EAD,BACHARELADO
+Fotografia,6043,FLEX,TECNOLÓGICO
+Gastronomia,9330,PRESENCIAL,TECNOLÓGICO
+Geografia - Bacharelado,2364,EAD,BACHARELADO
+Geografia - Licenciatura,6548,FLEX,LICENCIATURA
+Gestão Ambiental,1319,PRESENCIAL,TECNOLÓGICO
+Gestão Comercial,7741,PRESENCIAL,TECNOLÓGICO
+Gestão da Qualidade,2658,EAD,TECNOLÓGICO
+Gestão da Tecnologia da Informação,1679,FLEX,TECNOLÓGICO
+Gestão de Recursos Humanos,5104,EAD,TECNOLÓGICO
+Gestão de Segurança Privada,9026,PRESENCIAL,TECNOLÓGICO
+Gestão de Seguros,4277,EAD,TECNOLÓGICO
+Gestao de Turismo,1700,FLEX,TECNOLÓGICO
+Gestão Financeira,8378,PRESENCIAL,TECNOLÓGICO
+Gestão Hospitalar,7040,EAD,TECNOLÓGICO
+Gestão Pública,3500,FLEX,TECNOLÓGICO
+História - Bacharelado,4954,PRESENCIAL,BACHARELADO
+História - Licenciatura,7528,EAD,LICENCIATURA
+Hotelaria,2619,FLEX,TECNOLÓGICO
+Investigação Forense e Perícia Criminal,5689,PRESENCIAL,TECNOLÓGICO
+Jogos Digitais,9648,EAD,TECNOLÓGICO
+Jornalismo (Comunicação Social),4450,FLEX,BACHARELADO
+Letras - Língua Portuguesa,1253,PRESENCIAL,LICENCIATURA
+Letras - Espanhol,1148,EAD,LICENCIATURA
+Letras - Português e Espanhol,6593,FLEX,LICENCIATURA
+Letras - Inglês,9772,PRESENCIAL,LICENCIATURA
+Letras - Português e Inglês,4519,EAD,LICENCIATURA
+Logística,9421,FLEX,BACHARELADO
+Manutenção Industrial,2256,PRESENCIAL,TECNOLÓGICO
+Marketing,9191,EAD,TECNOLÓGICO
+Matemática,6357,FLEX,LICENCIATURA
+Mediação,9019,PRESENCIAL,TECNOLÓGICO
+Medicina,4912,EAD,BACHARELADO
+Medicina Veterinária,3067,FLEX,BACHARELADO
+Negócios Imobiliários,4682,PRESENCIAL,TECNOLÓGICO
+Nutrição,9528,EAD,BACHARELADO
+Odontologia,8289,FLEX,BACHARELADO
+Pedagogia,3247,PRESENCIAL,LICENCIATURA
+Petróleo e Gás,2843,EAD,BACHARELADO
+Processos Gerenciais,3845,FLEX,BACHARELADO
+Produção Audiovisual,9119,EAD,TECNOLÓGICO
+Produção Fonográfica,1967,PRESENCIAL,TECNOLÓGICO
+Psicologia,2376,EAD,BACHARELADO
+Publicidade e Propaganda,4754,FLEX,TECNOLÓGICO
+Radiologia,3992,PRESENCIAL,TECNOLÓGICO
+Redes de Computadores,3697,EAD,TECNOLÓGICO
+Redes de Telecomunicações,8977,FLEX,TECNOLÓGICO
+Relações Internacionais,6398,PRESENCIAL,TECNOLÓGICO
+Secretariado Executivo Trilíngue,8158,EAD,TECNOLÓGICO
+Segurança do Trabalho,6993,FLEX,TECNOLÓGICO
+Segurança Pública,2055,PRESENCIAL,TECNOLÓGICO
+Serviço Social,5878,EAD,BACHARELADO
+Sistemas de Informação,8914,FLEX,BACHARELADO
+Sistemas para Internet,1084,PRESENCIAL,TECNOLÓGICO
+Sociologia,1010,EAD,BACHARELADO
+Teatro - Licenciatura,6360,FLEX,LICENCIATURA
+Teologia,9685,PRESENCIAL,LICENCIATURA
+Transporte Terrestre,4752,EAD,BACHARELADO
+Turismo,1111,FLEX,TECNOLÓGICO
