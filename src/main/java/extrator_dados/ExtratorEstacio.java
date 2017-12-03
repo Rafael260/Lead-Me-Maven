@@ -297,17 +297,28 @@ public class ExtratorEstacio extends Extrator{
             MatrizDisciplina md;
             MatrizCurricular curriculo;
             Disciplina disciplina;
-           
+
             while ((linha = lerArq.readLine()) != null) {
                 linha = prepararLinha(linha);
                 dadosMatriz = linha.split(SEPARADOR_CSV);
                 md = new MatrizDisciplina();
                 md.setId(Integer.parseInt(dadosMatriz[0]));
-                 if (!camposValidos(dadosMatriz, 0, 1, 2, 3, 4)) {
-                     return;
-                 }
-                
-                
+                if (!camposValidos(dadosMatriz, 0, 1, 2, 3, 4)) {
+                    return;
+                }
+                md = new MatrizDisciplina();
+                md.setId(Integer.parseInt(dadosMatriz[3]));
+                curriculo = matrizCurricularDAO.encontrar(Integer.parseInt(dadosMatriz[4]));//????
+                disciplina = disciplinaDAO.encontrar(Integer.parseInt(dadosMatriz[3]));
+                if (curriculo == null || disciplina == null) {
+//            fecharConexoes();
+                    System.out.println("Matriz ou disciplina nula");
+                    return;
+                }
+                md.setMatrizCurricular(curriculo);
+                md.setDisciplina(disciplina);
+                md.setSemestreIdeal(Integer.parseInt(dadosMatriz[2]));
+                md.setNaturezaDisciplina(dadosMatriz[5]);
                 try {
                     matrizDisciplinaDAO.salvar(md);
                 } catch (PersistenceException e) {
@@ -315,7 +326,7 @@ public class ExtratorEstacio extends Extrator{
                 }
             }
             lerArq.close();
-            System.out.println(">>>>>>>>>>>>>>>>>TERMINOU DE CONFERIR OS CURSOS!");
+            System.out.println(">>>>>>>>>>>>>>>>>TERMINOU DE CONFERIR A LISTA DE COMPONENTES!");
         } catch (FileNotFoundException | UnsupportedEncodingException ex) {
             Logger.getLogger(ExtratorUFRN.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
