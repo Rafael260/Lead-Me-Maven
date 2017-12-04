@@ -55,6 +55,7 @@ public class ExtratorEstacio extends Extrator{
         turmaDAO = TurmaDAO.getInstance();
         matriculaDAO = MatriculaDAO.getInstance();
         alunoDAO = AlunoDAO.getInstance();
+        matrizDisciplinaDAO = MatrizDisciplinaDAO.getInstance();
     }
     
     @Override
@@ -142,7 +143,7 @@ public class ExtratorEstacio extends Extrator{
                 linha = prepararLinha(linha);
                 dados = linha.split(";");
                 System.out.println("Lendo linha da disciplina");
-                if (dados.length <= 7 || !camposValidos(dados, 0, 1, 2, 6)) {
+                if (!camposValidos(dados, 0, 1, 2, 6)) {
                     continue;
                 }
 
@@ -182,8 +183,8 @@ public class ExtratorEstacio extends Extrator{
                     while ((linha = lerArq.readLine()) != null) {
                         linha = prepararLinha(linha);
                         dados = linha.split(SEPARADOR_CSV);
-                        System.out.println("Lendo linha da disciplina");
-                        if (dados.length <= 3 || !camposValidos(dados, 0, 1, 2)) {
+                        System.out.println("Lendo linha da turma");
+                        if (!camposValidos(dados, 0, 1, 2)) {
                             continue;
                         }
                         turma = new Turma();
@@ -205,7 +206,7 @@ public class ExtratorEstacio extends Extrator{
                         }
                     }
             lerArq.close();
-            System.out.println(">>>>>>>>>>>>>>>>>TERMINOU DE CONFERIR AS DISCIPLINAS!");
+            System.out.println(">>>>>>>>>>>>>>>>>TERMINOU DE CONFERIR AS TURMAS!");
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -231,15 +232,12 @@ public class ExtratorEstacio extends Extrator{
                         Matricula matricula;
                         Turma turma;
                         Curso curso;
-                        if (dados.length < 10 || !ExtratorUFRN.camposValidos(dados, 0, 1, 2, 3, 4, 5,6)) {
-                            return;
-                        }
-                        if (!dados[5].contains("APROVADO") && !dados[5].contains("REPROVADO")) {
+                        if (!camposValidos(dados, 0, 1, 2, 3, 4, 5,6)) {
                             return;
                         }
                         aluno = new Aluno();
                         matricula = new Matricula();
-                        aluno.setId(dados[1]);//
+                        aluno.setId(dados[1]);
                         turma = turmaDAO.encontrar(Integer.parseInt(dados[0]));//
                         curso = cursoDAO.encontrar(Integer.parseInt(dados[2]));//
                         if (turma == null) {
@@ -251,8 +249,7 @@ public class ExtratorEstacio extends Extrator{
                             return;
                         }
                         aluno.setCurso(curso);
-                        aluno.setNome(dados[1]);
-                        try {
+                       /* try {
                             aluno = alunoDAO.salvar(aluno);
                             System.out.println("Salvou aluno");
                         } catch (PersistenceException e) {
@@ -263,18 +260,19 @@ public class ExtratorEstacio extends Extrator{
                                 System.err.println(" >>>>> Nao achou o aluno que tbm nao conseguiu inserir!! <<<<<<");
                                 return;
                             }
-                        }
-                        matricula.setId(Integer.parseInt(dados[6]));
+                        }*/
                         matricula.setAluno(aluno);
                         matricula.setTurma(turma);
                         matricula.setMedia(Double.parseDouble(dados[3]));
                         matricula.setNumeroFaltas(Double.parseDouble(dados[4]));
+                       // matricula.setId(Integer.parseInt(dados[6]));
                         matricula.setSituacao(dados[5]);
                         try {
                             matriculaDAO.salvar(matricula);
                             System.out.println("Salvou matricula");
                         } catch (PersistenceException e) {
                             System.err.println("NAO SALVOU A MATRICULA");
+                            System.out.println(matricula.getId()+" "+matricula.getTurma()+" "+matricula.getAluno().getNome());
                         }
                         System.out.println("Lendo a linha do arquivo " + ano + "." + periodo);
 
@@ -303,7 +301,7 @@ public class ExtratorEstacio extends Extrator{
                 linha = prepararLinha(linha);
                 dadosMatriz = linha.split(SEPARADOR_CSV);
                 md = new MatrizDisciplina();
-                if (!camposValidos(dadosMatriz, 0, 1, 2, 3, 4,5,6)) {
+                if (!camposValidos(dadosMatriz,0,1,2,3,4,5,6)) {
                     return;
                 }
                 md.setId(Integer.parseInt(dadosMatriz[0]));
