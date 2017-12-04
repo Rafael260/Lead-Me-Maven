@@ -22,6 +22,6 @@ public interface AbstractFactory {
     public AlunoService createAlunoService();
     public RequisitosService createRequisitosService();//DONE
     public ComparadorMatrizDisciplina createComparadorMatrizDisciplina();//DONE
-    public Extrator createExtrator();
+    public Extrator createExtrator();//DONE
     public AssociacaoStrategy createAssociacaoStrategy(); //DONE
 }

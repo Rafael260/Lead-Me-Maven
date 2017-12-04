@@ -60,7 +60,7 @@ public class ExtratorEstacio extends Extrator{
     @Override
     public void atualizarListaDeCursos() {
         try {
-            BufferedReader lerArq = new BufferedReader(new InputStreamReader(new FileInputStream("\\instancia\\cursos.csv"), "UTF-8"));
+            BufferedReader lerArq = new BufferedReader(new InputStreamReader(new FileInputStream("C:\\Users\\" + System.getProperty("user.name") +"\\Lead-Me-Maven\\instancia\\cursos.csv"), "UTF-8"));
             String linha = lerArq.readLine();
             String[] dadosCurso;
             Curso curso;
@@ -94,7 +94,7 @@ public class ExtratorEstacio extends Extrator{
     public void atualizarListaDeMatrizesCurriculares() {
         BufferedReader lerArq;
         try {
-            lerArq = new BufferedReader(new InputStreamReader(new FileInputStream("\\estruturas-curriculares.csv"), "UTF-8"));
+            lerArq = new BufferedReader(new InputStreamReader(new FileInputStream("C:\\Users\\" + System.getProperty("user.name") +"\\Lead-Me-Maven\\instancia\\estruturas-curriculares.csv"), "UTF-8"));
             String linha = lerArq.readLine();
             String[] dadosMatriz;
             MatrizCurricular matriz;
@@ -133,7 +133,7 @@ public class ExtratorEstacio extends Extrator{
     public void atualizarListaDeDisciplinas() {
         BufferedReader lerArq;
         try {
-            lerArq = new BufferedReader(new InputStreamReader(new FileInputStream("\\componentes-curriculares.csv"), "UTF-8"));
+            lerArq = new BufferedReader(new InputStreamReader(new FileInputStream("C:\\Users\\" + System.getProperty("user.name") +"\\Lead-Me-Maven\\instancia\\componentes-curriculares.csv"), "UTF-8"));
             String linha = lerArq.readLine();
             String[] dados;
             Disciplina disciplina;
@@ -174,7 +174,7 @@ public class ExtratorEstacio extends Extrator{
             for (int periodo = 1; periodo <= 2; periodo++) {
                 BufferedReader lerArq;
              try {
-                  lerArq = new BufferedReader(new InputStreamReader(new FileInputStream("\\"+ano+"."+periodo+".csv"), "UTF-8"));
+                  lerArq = new BufferedReader(new InputStreamReader(new FileInputStream("C:\\Users\\" + System.getProperty("user.name") +"\\Lead-Me-Maven\\instancia\\"+ano+"."+periodo+".csv"), "UTF-8"));
                     String linha = lerArq.readLine();
                     String[] dados;
                     Turma turma;
@@ -220,7 +220,7 @@ public class ExtratorEstacio extends Extrator{
             for (int periodo = 1; periodo <= 2; periodo++) {
                 BufferedReader lerArq;
                 try {
-                    lerArq = new BufferedReader(new InputStreamReader(new FileInputStream("\\matriculas\\matricula-" + ano + "." + periodo + ".csv"), "UTF-8"));
+                    lerArq = new BufferedReader(new InputStreamReader(new FileInputStream("C:\\Users\\" + System.getProperty("user.name") +"\\Lead-Me-Maven\\instancia\\matricula-" + ano + "." + periodo + ".csv"), "UTF-8"));
                     System.err.println("INICIANDO LEITURA DO ARQUIVO DE" + ano + "." + periodo);
                     String linha = lerArq.readLine();
                     String[] dados;
@@ -291,7 +291,7 @@ public class ExtratorEstacio extends Extrator{
     @Override
     public void atualizarListaDeComponentesDasMatrizes() {
         try {
-            BufferedReader lerArq = new BufferedReader(new InputStreamReader(new FileInputStream("\\instancia\\gradeDireito.csv"), "UTF-8"));
+            BufferedReader lerArq = new BufferedReader(new InputStreamReader(new FileInputStream("C:\\Users\\" + System.getProperty("user.name") +"\\Lead-Me-Maven\\instancia\\gradeDireito.csv"), "UTF-8"));
             String linha = lerArq.readLine();
             String[] dadosMatriz;
             MatrizDisciplina md;

@@ -1,5 +1,6 @@
 package com.mycompany.lead.me;
 
+import fabricas.EstacioFactory;
 import fabricas.Fabrica;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -14,6 +15,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         CarregadorTelaLogin carregadorTelaLogin = Fabrica.getInstance().getFactory().createCarregadorTelaLogin();
+        Fabrica.getInstance().getFactory().createExtrator();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/"+carregadorTelaLogin.coletarNomeTelaLogin()));
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");

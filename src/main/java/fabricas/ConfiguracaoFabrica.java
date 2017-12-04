@@ -28,7 +28,7 @@ public class ConfiguracaoFabrica {
 //        String instancia = lerArq.readLine();
 //        lerArq.close();
 //        return instancia.replace("\n","");
-        return "UFRN";
+        return "ESTACIO";
     }
 
     public static void salvarInstanciaSistema(String instancia) throws FileNotFoundException, UnsupportedEncodingException {
