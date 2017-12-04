@@ -38,7 +38,7 @@ import util.ThreadUtil;
  */
 public class ExtratorEstacio extends Extrator{
 
-    public static final String SEPARADOR_CSV = ";";
+    public static final String SEPARADOR_CSV = ",";
     private CursoDAO cursoDAO;
     private MatrizCurricularDAO matrizCurricularDAO;
     private DisciplinaDAO disciplinaDAO;
@@ -67,9 +67,10 @@ public class ExtratorEstacio extends Extrator{
             while ((linha = lerArq.readLine()) != null) {
                 linha = prepararLinha(linha);
                 dadosCurso = linha.split(SEPARADOR_CSV);
-                if (!camposValidos(dadosCurso, 0, 1, 2, 3)) {
+                System.out.println(dadosCurso[0]);
+               if (!camposValidos(dadosCurso, 0, 1, 2,3)) {
                     continue;
-                }
+              }
                 curso = new Curso();
                 curso.setNome(dadosCurso[0]);
                 curso.setId(Integer.parseInt(dadosCurso[1]));
@@ -101,8 +102,8 @@ public class ExtratorEstacio extends Extrator{
             Curso curso;
             while ((linha = lerArq.readLine()) != null) {
                 linha = prepararLinha(linha);
-                dadosMatriz = linha.split(SEPARADOR_CSV);
-                if (!camposValidos(dadosMatriz, 0, 2, 3, 4)) {
+                dadosMatriz = linha.split(";");
+                if (!camposValidos(dadosMatriz, 0, 2, 3)) {
                     continue;
                 }
                 matriz = new MatrizCurricular();
@@ -139,9 +140,9 @@ public class ExtratorEstacio extends Extrator{
             Disciplina disciplina;
             while ((linha = lerArq.readLine()) != null) {
                 linha = prepararLinha(linha);
-                dados = linha.split(SEPARADOR_CSV);
+                dados = linha.split(";");
                 System.out.println("Lendo linha da disciplina");
-                if (dados.length <= 7 || !camposValidos(dados, 0, 1, 2, 3, 4, 5, 6)) {
+                if (dados.length <= 7 || !camposValidos(dados, 0, 1, 2, 6)) {
                     continue;
                 }
 
@@ -302,14 +303,12 @@ public class ExtratorEstacio extends Extrator{
                 linha = prepararLinha(linha);
                 dadosMatriz = linha.split(SEPARADOR_CSV);
                 md = new MatrizDisciplina();
-                md.setId(Integer.parseInt(dadosMatriz[0]));
-                if (!camposValidos(dadosMatriz, 0, 1, 2, 3, 4)) {
+                if (!camposValidos(dadosMatriz, 0, 1, 2, 3, 4,5,6)) {
                     return;
                 }
-                md = new MatrizDisciplina();
-                md.setId(Integer.parseInt(dadosMatriz[3]));
-                curriculo = matrizCurricularDAO.encontrar(Integer.parseInt(dadosMatriz[4]));//????
-                disciplina = disciplinaDAO.encontrar(Integer.parseInt(dadosMatriz[3]));
+                md.setId(Integer.parseInt(dadosMatriz[0]));
+                curriculo = matrizCurricularDAO.encontrar(Integer.parseInt(dadosMatriz[5]));//????
+                disciplina = disciplinaDAO.encontrar(Integer.parseInt(dadosMatriz[4]));
                 if (curriculo == null || disciplina == null) {
 //            fecharConexoes();
                     System.out.println("Matriz ou disciplina nula");
@@ -317,8 +316,8 @@ public class ExtratorEstacio extends Extrator{
                 }
                 md.setMatrizCurricular(curriculo);
                 md.setDisciplina(disciplina);
-                md.setSemestreIdeal(Integer.parseInt(dadosMatriz[2]));
-                md.setNaturezaDisciplina(dadosMatriz[5]);
+                md.setSemestreIdeal(Integer.parseInt(dadosMatriz[3]));
+                md.setNaturezaDisciplina(dadosMatriz[6]);
                 try {
                     matrizDisciplinaDAO.salvar(md);
                 } catch (PersistenceException e) {
@@ -336,7 +335,7 @@ public class ExtratorEstacio extends Extrator{
 
     @Override
     public void atualizarListaDeMatriculas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
     public static boolean camposValidos(String[] linha, int... indices) {
         for (int i : indices) {

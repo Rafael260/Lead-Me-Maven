@@ -1,5 +1,6 @@
 package com.mycompany.lead.me;
 
+import extrator_dados.Extrator;
 import fabricas.EstacioFactory;
 import fabricas.Fabrica;
 import javafx.application.Application;
@@ -15,7 +16,8 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         CarregadorTelaLogin carregadorTelaLogin = Fabrica.getInstance().getFactory().createCarregadorTelaLogin();
-        Fabrica.getInstance().getFactory().createExtrator();
+        Extrator ext = Fabrica.getInstance().getFactory().createExtrator();
+        ext.atualizarBaseDeDados();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/"+carregadorTelaLogin.coletarNomeTelaLogin()));
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
