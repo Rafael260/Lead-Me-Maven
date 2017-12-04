@@ -13,7 +13,7 @@ public class RequisitosServiceEstacio extends RequisitosService{
 
     @Override
     public String coletarRegexCodigoDisciplina() {
-        return "[A-Z]{3}[0-9]{5}";
+        return "[A-Z]{2}[0-9]{4}";
     }
 
     @Override

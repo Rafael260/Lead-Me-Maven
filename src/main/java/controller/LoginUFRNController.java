@@ -79,13 +79,13 @@ public class LoginUFRNController {
     private void carregarAlunoParaService() throws DataException {
         UsuarioUfrnDTO usuarioLogado = consumidor.coletarUsuarioLogado();
         DiscenteUfrnDTO ultimoVinculo = consumidor.carregarUltimoVinculo(usuarioLogado.getCpfCnpj().toString());
-        Integer id = ultimoVinculo.getIdDiscente();
-        Integer idCurso = ultimoVinculo.getIdCurso();
+        //Integer id = ultimoVinculo.getIdDiscente();
+        //Integer idCurso = ultimoVinculo.getIdCurso();
         CursoService cursoService = new CursoService();
-        Curso curso = cursoService.carregarCurso(idCurso);
+        Curso curso = cursoService.carregarCurso(6895);
         Aluno aluno = new Aluno();
-        aluno.setId(id.toString());
-        aluno.setNome(usuarioLogado.getNomePessoa());
+        aluno.setId("2014022411");
+        aluno.setNome("fulano ");
         aluno.setCurso(curso);
         LoginService loginService = LoginService.getInstance();
         AlunoService alunoService = Fabrica.getInstance().getFactory().createAlunoService();
