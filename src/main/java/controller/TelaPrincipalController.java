@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -298,7 +299,8 @@ public class TelaPrincipalController implements Initializable {
 
     @FXML
     void sair(ActionEvent event) {
-        ((Stage) btnSair.getScene().getWindow()).close();
+        Platform.exit();
+        System.exit(0);
     }
 
     @FXML

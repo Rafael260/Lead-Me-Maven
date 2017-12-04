@@ -80,6 +80,7 @@ public class LoginUFRNController {
         UsuarioUfrnDTO usuarioLogado = consumidor.coletarUsuarioLogado();
         DiscenteUfrnDTO ultimoVinculo = consumidor.carregarUltimoVinculo(usuarioLogado.getCpfCnpj().toString());
         Integer id = ultimoVinculo.getIdDiscente();
+        System.out.println("ID DISCENTE: "+ id);
         Integer idCurso = ultimoVinculo.getIdCurso();
         CursoService cursoService = new CursoService();
         Curso curso = cursoService.carregarCurso(idCurso);

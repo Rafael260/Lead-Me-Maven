@@ -26,7 +26,7 @@ import weka.core.converters.CSVLoader;
 public class AssociadorWeka {
     
     public static final String ARQUIVO_ASSOCIACAO = "associacao.arff";
-    public static final Integer NUMERO_REGRAS = 1000;
+    public static final Integer NUMERO_REGRAS = 8000;
     private static AssociadorWeka instance;
     private AssociacaoStrategy associacaoStrategy;
     

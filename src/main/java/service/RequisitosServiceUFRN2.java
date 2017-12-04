@@ -14,12 +14,12 @@ public class RequisitosServiceUFRN2 extends RequisitosService{
     //Na base de dados, colocar sempre uma letra a mais nos codigos: ex: IIMD0024
     @Override
     public String coletarRegexCodigoDisciplina() {
-        return "[A-Z]{4}[0-9]{4}";
+        return "[A-Z]{3}[0-9]{4}";
     }
 
     @Override
     public String coletarExpressaoRequisitosComOperadores(String requisitos) {
-         return requisitos.replace(" AND ", "*").replace(" OR ", "+");
+         return requisitos.replace(" E ", "*").replace(" OU ", "+");
     }
     
 }

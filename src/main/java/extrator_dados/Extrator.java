@@ -20,13 +20,13 @@ public abstract class Extrator {
     abstract public void atualizarListaDeMatriculas();
     
     public void atualizarBaseDeDados(){
-        atualizarListaDeCursos();
-        atualizarListaDeMatrizesCurriculares();
-        atualizarListaDeDisciplinas();
-        atualizarListaDeTurmas();
-        atualizarListaDeAlunos();
+//        atualizarListaDeCursos();
+//        atualizarListaDeMatrizesCurriculares();
+//        atualizarListaDeDisciplinas();
+//        atualizarListaDeTurmas();
+//        atualizarListaDeAlunos();
         atualizarListaDeComponentesDasMatrizes();
-        atualizarListaDeMatriculas();
+//        atualizarListaDeMatriculas();
     }
     
 }

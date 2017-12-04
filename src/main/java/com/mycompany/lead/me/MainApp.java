@@ -1,5 +1,6 @@
 package com.mycompany.lead.me;
 
+import base_dados.CursoDAO;
 import fabricas.Fabrica;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -7,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import service.DadosService;
 
 
 public class MainApp extends Application {
@@ -17,7 +19,6 @@ public class MainApp extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/"+carregadorTelaLogin.coletarNomeTelaLogin()));
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
-        //Teste para criar as tabelas
         stage.setTitle("Lead Me - Login");
         stage.setScene(scene);
         stage.show();

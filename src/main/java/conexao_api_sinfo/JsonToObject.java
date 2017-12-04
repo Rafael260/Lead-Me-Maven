@@ -83,7 +83,7 @@ class JsonToObject {
         matriculaDTO.setIdComponente(object.getInt("id-componente"));
         matriculaDTO.setIdDiscente(object.getInt("id-discente"));
         matriculaDTO.setIdSituacaoMatricula(object.getInt("id-situacao-matricula"));
-        matriculaDTO.setIdTipoIntegralizacao(object.getString("id-tipo-integralizacao"));
+//        matriculaDTO.setIdTipoIntegralizacao(object.getString("id-tipo-integralizacao"));
         matriculaDTO.setIdTurma(object.getInt("id-turma"));
 //        matriculaDTO.setMediaFinal(matriculaDTO.getConceito() ? object.getString("media-final"): object.getFloat("media-final"));
         matriculaDTO.setPeriodo(object.getInt("periodo"));

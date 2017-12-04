@@ -24,11 +24,11 @@ public class ConfiguracaoFabrica {
     public static final String NOME_ARQUIVO = "instancia.txt";
 
     public static String coletarInstanciaSistema() throws FileNotFoundException, UnsupportedEncodingException, IOException {
-//        BufferedReader lerArq = new BufferedReader(new InputStreamReader(new FileInputStream(NOME_ARQUIVO), "UTF-8"));
-//        String instancia = lerArq.readLine();
-//        lerArq.close();
-//        return instancia.replace("\n","");
-        return "UFRN";
+        BufferedReader lerArq = new BufferedReader(new InputStreamReader(new FileInputStream(NOME_ARQUIVO), "UTF-8"));
+        String instancia = lerArq.readLine();
+        lerArq.close();
+        return instancia.replace("\n","");
+//        return "UFRN";
     }
 
     public static void salvarInstanciaSistema(String instancia) throws FileNotFoundException, UnsupportedEncodingException {

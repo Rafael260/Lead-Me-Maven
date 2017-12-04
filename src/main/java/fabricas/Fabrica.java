@@ -35,6 +35,9 @@ public class Fabrica {
             } else if (instancia.equalsIgnoreCase("ESTACIO")) {
                 factory = new EstacioFactory();
             }
+            else if (instancia.equalsIgnoreCase("UFRN2")){
+                factory = new UFRN2Factory();
+            }
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Fabrica.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

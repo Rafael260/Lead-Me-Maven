@@ -30,7 +30,8 @@ public class UFRNStrategy implements AssociacaoStrategy{
         reader.close();
 
         FPGrowth growth = new FPGrowth();
-        growth.setMinMetric(0.7);
+        growth.setMinMetric(0.1);
+//        growth.setLowerBoundMinSupport(0.01);
         growth.setNumRulesToFind(NUMERO_REGRAS);
         growth.buildAssociations(data);
         return growth.getAssociationRules().getRules();

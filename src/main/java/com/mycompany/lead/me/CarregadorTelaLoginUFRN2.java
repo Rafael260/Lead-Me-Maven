@@ -13,6 +13,6 @@ public class CarregadorTelaLoginUFRN2 implements CarregadorTelaLogin{
     
     @Override
     public String coletarNomeTelaLogin() {
-        return "TelaLoginWebView.fxml";
+        return "TelaLoginWebView2.fxml";
     }
 }
